@@ -19,6 +19,10 @@
   accent, system fonts, both themes, a print block. Decoration is not what makes a PRD
   land, and every hour spent on it is an hour not spent on section 8.
 
+  The contents list is a sticky sidebar on screens wider than 64rem and a block at the top
+  below that, all in CSS. It works because every section carries an id (s1 … s13) — keep
+  the ids and the contents entries in step, and do not add script to make it cleverer.
+
   Writing notes
   -------------
   Read it back cold before calling it done. Re-read the whole thing as a stranger. Two
@@ -85,6 +89,8 @@
     }
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0 auto;
     padding: 3rem 1.5rem 6rem;
@@ -101,6 +107,7 @@
     padding-top: 1.25rem; border-top: 1px solid var(--rule); letter-spacing: -.01em;
   }
   h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  section { scroll-margin-top: 1.5rem; }
   h2 .num { color: var(--accent); font-variant-numeric: tabular-nums; }
   p, li { margin: 0 0 .6rem; }
   ul, ol { padding-left: 1.4rem; margin: 0 0 1rem; }
@@ -122,11 +129,40 @@
   .check { list-style: none; padding-left: 0; }
   .check li { padding-left: 1.4rem; text-indent: -1.4rem; }
   .check input { margin-right: .45rem; vertical-align: -1px; }
+  /* Wide screens: the contents becomes a sticky sidebar. Narrow screens keep the tinted
+     block at the top — a 13rem column has nowhere to go on a phone. */
+  @media screen and (min-width: 64rem) {
+    body {
+      display: grid;
+      grid-template-columns: 13rem minmax(0, 44rem);
+      column-gap: 3.5rem;
+      justify-content: center;
+      align-items: start;
+      max-width: none;
+    }
+    header, main { grid-column: 2; }
+    .toc {
+      grid-column: 1; grid-row: 2;
+      position: sticky; top: 2.5rem;
+      margin: 0; padding: 0;
+      background: none; border-radius: 0;
+      font-size: .875rem; line-height: 1.45;
+      max-height: calc(100vh - 5rem); overflow-y: auto;
+    }
+    main { grid-row: 2; }
+    main > section:first-child > h2 { margin-top: .5rem; padding-top: 0; border-top: 0; }
+    .toc ol { padding-left: 1.6rem; }
+    .toc li { margin: 0 0 .45rem; }
+    .toc li::marker { color: var(--muted); }
+    .toc a { color: var(--fg); text-decoration: none; }
+    .toc a:hover { color: var(--accent); text-decoration: underline; }
+  }
   @media print {
     :root { --bg: #fff; --fg: #000; --muted: #444; --rule: #ccc; --accent: #000;
             --code-bg: #fff; }
-    body { padding: 0; max-width: none; font-size: 11pt; }
-    .toc { border: 1px solid var(--rule); }
+    body { display: block; padding: 0; max-width: none; font-size: 11pt; }
+    .toc { position: static; max-height: none; overflow: visible;
+           padding: .75rem 1.25rem; border: 1px solid var(--rule); font-size: 10pt; }
     h2, h3 { break-after: avoid; }
     table, li, .check li { break-inside: avoid; }
   }
@@ -134,10 +170,12 @@
 </head>
 <body>
 
+<header>
 <h1>PRD: [Product name]</h1>
 <p class="meta">Owner: [name] · Date: [YYYY-MM-DD] · Status: Draft</p>
 <p class="meta">Supersedes: [brief and questionnaire filenames] — kept as history; this
 document is the source of truth.</p>
+</header>
 
 <nav class="toc">
   <h2>Contents</h2>
@@ -157,6 +195,8 @@ document is the source of truth.</p>
     <li><a href="#s13">Delivery phases</a></li>
   </ol>
 </nav>
+
+<main>
 
 <section id="s1">
 <h2><span class="num">1.</span> Problem</h2>
@@ -327,6 +367,8 @@ verifiable.</p>
   <li><strong>[Phase name]</strong> — FR-7 … FR-12. Verifiable when: […].</li>
 </ol>
 </section>
+
+</main>
 
 </body>
 </html>

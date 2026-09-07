@@ -273,10 +273,12 @@ it — not a server, not a build step, not an internet connection.
 - **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
   Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
   which is exactly the kind of loss this document exists to prevent.
-- **No interactivity.** Tempting additions — collapsible sections, a sticky nav, a search
-  box, a progress bar — all cost the reader more than they give. A plain scrolling document
-  is the format. The one exception is the table of contents described in the template, which
-  is ordinary anchor links.
+- **Navigable, but not interactive.** The template's table of contents is a sticky sidebar
+  above 64rem and a block at the top of the page below it — plain anchor links and a CSS
+  grid, no JavaScript. Keep it. What stays out: collapsible sections, a search box, a
+  progress bar, a back-to-top button, anything that needs script. A PRD is read top to
+  bottom and jumped around by section number; those two behaviors are the whole navigation
+  requirement, and everything past them costs the reader more than it gives.
 
 Everything in *Writing rules*, *Self-containment*, and *Constraints* applies unchanged. HTML
 is the presentation; it does not license a longer, more decorated, or more technical
