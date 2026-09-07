@@ -46,13 +46,20 @@ build can be prompted one verifiable chunk at a time.
 
 Check before reporting: every contents link jumps to the right heading, every checkbox
 renders as a checkbox, and no bracketed placeholder survived.
+
+Feature mode
+------------
+If this PRD adds a feature to a product that already exists, sections 1-3 may name the
+existing product and say in one line what it already does, rather than re-explaining the
+whole business — but do not stop there: everything from section 6 onward must be as fully
+self-contained for this feature as if there were no existing product at all.
 -->
 
-# PRD: [Product name]
+# PRD: [Product name, or Product name — Feature name]
 
 Owner: [name] · Date: [YYYY-MM-DD] · Status: Draft
-Supersedes: [brief and questionnaire filenames] — kept as history; this document is the
-source of truth.
+Supersedes: [brief and/or questionnaire filenames — whichever exist] — kept as history;
+this document is the source of truth.
 
 ## Contents
 

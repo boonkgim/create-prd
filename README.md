@@ -1,13 +1,19 @@
 # create-prd
 
-**A brief is not a spec. This turns yours into one before a coding agent starts guessing.**
+**A brief is not a spec. This turns yours into one before a coding agent starts guessing —
+and if you don't have a brief, it will build one with you.**
 
 An [agent skill](https://agentskills.io) for Claude Code, Codex, and any other AI coding
 agent that reads `SKILL.md`. Hand it a short problem/solution brief and it expands it into
 a Product Requirements Document: lean enough to write in an hour, precise enough for an
-agent to build from, and free of every tech decision. Where the brief does not have enough
-in it to build from, the skill stops and asks — in writing, in numbered rounds — until it
-does.
+agent to build from, and free of every tech decision. No brief yet? Say what you want to
+build in a sentence and it starts round 1 of the questionnaire straight away — same gate,
+same rounds, no brief required. Where there isn't enough to build from, the skill stops and
+asks — in writing, in numbered rounds — until there is.
+
+It works both ways: standing up a new product from nothing, and speccing a new feature for
+a project that already exists. In the latter case it reads the project's own README and any
+earlier PRDs first, so it doesn't re-ask what the project already answered.
 
 This repo's own [commit history](https://github.com/boonkgim/create-prd/commits/main)
 *is* the skill's design record: every commit that shaped it carries the real prompt that
@@ -36,8 +42,16 @@ longer brief; it is a **document that cannot be written until the decisions exis
   in the PRD — those are a separate decision made after this one is approved. A stray tech
   preference in the brief gets moved to the assumptions section, not built into a
   requirement.
+- **The brief is optional.** Nothing written down yet? Answer one question — what would you
+  like to create — and the skill runs the same gate and the same rounds, just starting from
+  round 1 of the questionnaire instead of a document you had to write first.
+- **New product or new feature, same skill.** Point it at an existing project and it reads
+  the project's own context first — README, prior PRDs — so a feature PRD only has to
+  answer what's new, not re-litigate the whole product.
 
 ## Folder convention
+
+With a brief:
 
 ```
 docs/<dated-folder>/
@@ -45,6 +59,15 @@ docs/<dated-folder>/
   02-questions.md      <- round 1, the user types answers into it
   03-questions.md      <- round 2, only if needed
   04-prd.md            <- next free number once the gate passes
+```
+
+Without one:
+
+```
+docs/<dated-folder>/
+  01-questions.md      <- round 1, stands in for the brief
+  02-questions.md      <- round 2, only if needed
+  03-prd.md            <- next free number once the gate passes
 ```
 
 The PRD is one markdown file, capped at three pages. No images, no embedded scripts, no
@@ -95,8 +118,14 @@ tool-specific — the whole skill is prose and markdown.
 ## Usage
 
 Start from a short brief — a paragraph on the problem and the intended solution, saved as
-`docs/<dated-folder>/01-brief.md`. Tools that support invoking a skill by name take
-`/create-prd` directly; otherwise just ask for a PRD from the brief.
+`docs/<dated-folder>/01-brief.md` — or start from nothing and just say what you want to
+build; the skill will ask one quick question and take it from there. Tools that support
+invoking a skill by name take `/create-prd` directly; otherwise just ask for a PRD, with or
+without a brief.
+
+Works the same way for a brand-new product and for a new feature on a project you already
+have open — for a feature, mention that it's an addition to the existing project and the
+skill reads the project's own README and prior PRDs before asking anything.
 
 The skill reads the folder, tests it against the readiness gate, and either writes the
 next questionnaire round or writes the PRD. It never writes a partial PRD, never writes
@@ -113,9 +142,10 @@ If this is useful, a ⭐ helps other people find it.
   is genuinely underspecified. Tell the skill to write the PRD now and it will, marking
   whatever remains as an assumption — but if nothing is actually unknown, a round is
   overhead.
-- **The change is small.** A one-paragraph feature addition to a system that already has a
-  PRD does not need a new one; use whatever this project already uses for incremental
-  requirements.
+- **The change is genuinely small.** A one-line tweak with no new business rule, journey, or
+  edge case doesn't need a PRD at all. This skill is for a feature big enough to carry its
+  own decisions — money, scope, failure paths — even when the product around it is already
+  built and already documented.
 
 ## Author
 

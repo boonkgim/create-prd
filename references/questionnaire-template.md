@@ -1,8 +1,11 @@
 # Questionnaire template
 
-Written to `NN-questions.md` in the brief's folder, where `NN` is the next free number.
-The user answers **in this file**, in the answer slot under each question. Never ask for
-answers in a separate file — matching them back is error-prone and loses the pairing.
+Written to `NN-questions.md` in the folder, where `NN` is the next free number. When there
+is no brief, round 1 uses this same template and the same `01-questions.md` naming, but
+stands in for the brief — its questions cover the problem, users, and scope for the first
+time, not just the gaps in a written brief. The user answers **in this file**, in the
+answer slot under each question. Never ask for answers in a separate file — matching them
+back is error-prone and loses the pairing.
 
 ---
 
@@ -145,3 +148,9 @@ questions are drifting into detail that belongs in section 12 as assumptions.
 **Do not attach a draft PRD.** Answering questions and critiquing a document are different
 mental modes; a draft alongside the questions pulls the user into editing prose instead of
 making decisions. The critique comes after the PRD is written, not during.
+
+**A round 1 with no brief behind it has no product name yet.** Use the user's one-line
+answer to "what would you like to create?" as a working title in the `For:` line — flag it
+as working, since G8 still requires a real name before the PRD can be written. If the
+project already exists (feature mode), use the existing product's name instead; it is
+already decided.

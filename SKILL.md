@@ -1,12 +1,13 @@
 ---
 name: create-prd
-description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
+description: Turn a short project brief - or, if there is none, a one-line answer to "what would you like to create?" - into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until it is decision-complete. Works both for standing up a new product and for adding a feature to a project that already exists. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief and questionnaires, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, start a PRD with no brief at all, spec out a new feature for an existing project, answer a questionnaire round, or produce a spec before vibe coding.
 license: MIT
 ---
 
 # Create PRD
 
-Expand a short problem/solution brief into a Product Requirements Document that is
+Expand a short problem/solution brief — or, with no brief at all, a discovery
+questionnaire built from a single question — into a Product Requirements Document that is
 **lean enough to write in an hour, precise enough for an agent to build from, and free of
 technology decisions**.
 
@@ -20,17 +21,22 @@ in observable terms.
 The PRD answers **what and why**. It never answers **how**. Stack, schema, hosting, and
 libraries are a separate decision made after the PRD is approved.
 
-The PRD also **supersedes the brief**. It is the single document handed to whoever builds
-this. A reader who has never seen the brief and was not present for any conversation about
-it must be able to build from the PRD alone.
+The PRD also **supersedes the brief and every questionnaire**, including a round 1 that
+stood in for a missing brief. It is the single document handed to whoever builds this. A
+reader who has never seen any of it and was not present for any conversation about it must
+be able to build from the PRD alone.
 
-A brief almost never contains enough to do that. Do not paper over the gap with plausible
-guesses — **ask, in writing, until the decisions exist**. The questioning is not overhead
-before the real work; it is most of the work.
+A brief — when there is one — almost never contains enough to do that, and a one-line
+answer to "what would you like to create?" contains even less. Do not paper over the gap
+with plausible guesses — **ask, in writing, until the decisions exist**. The questioning is
+not overhead before the real work; it is most of the work.
 
 ## Folder convention
 
-Everything lives in the brief's folder, numbered in creation order:
+Everything lives in one dated folder, numbered in creation order. The first file depends on
+whether a brief exists.
+
+**With a brief:**
 
 ```
 docs/<dated-folder>/
@@ -40,57 +46,94 @@ docs/<dated-folder>/
   04-prd.md            <- next free number once the gate passes
 ```
 
+**Without a brief** — nothing has been written down yet, just an idea:
+
+```
+docs/<dated-folder>/
+  01-questions.md      <- round 1, stands in for the brief
+  02-questions.md      <- round 2, only if needed
+  03-prd.md            <- next free number once the gate passes
+```
+
 The PRD's number depends on how many rounds ran. Always use the next free number; never
 overwrite or renumber an existing file.
+
+`<dated-folder>` is `yyyy-mm-dd-<slug>`, e.g. `2026-09-08-loyalty-points`. Take the slug
+from the brief's subject, or, when there is no brief, from the user's one-line answer to
+"what would you like to create?".
 
 If the project has its own convention for where dated docs live and what a tool checks
 against them, use that convention instead — the requirement is only that the folder is
 new, and that nothing else in the project reads it as drift.
 
-**The PRD and the questionnaires are both markdown, but not the same kind of file.** A
-questionnaire is a working file the user edits by hand — numbered questions with blanks.
-The PRD is the finished document that replaces the brief. Never let PRD content leak into
-a questionnaire, or vice versa.
+**The PRD and the questionnaires — round 1 included, whether or not it followed a brief —
+are all markdown, but not the same kind of file.** A questionnaire is a working file the
+user edits by hand — numbered questions with blanks. The PRD is the finished document that
+replaces the brief and every questionnaire round. Never let PRD content leak into a
+questionnaire, or vice versa.
 
 ## Steps
 
-1. **Read the folder, not just the brief.** Read the brief and every file in its folder in
-   number order, including earlier questionnaires and everything the user wrote into them —
-   answers, corrections to assumptions, and free-text comments alike. Read the comments
-   first: they often invalidate a question or move something in or out of scope. Rounds may
-   span sessions — the files are the memory, not the conversation. If no brief exists, ask
-   the user for a paragraph on the problem and intended solution first.
+1. **Work out what this is for.** Two situations are both in scope, and the rest of this
+   skill applies to either:
+   - **A feature for a project that already exists on disk.** Before asking anything, look
+     for context the project already carries — a root `README`, `CLAUDE.md`/`AGENTS.md`,
+     and any earlier PRDs under `docs/`. Absorb what they already establish (product name,
+     users, constraints, house conventions) instead of re-asking for it. The questionnaire
+     and PRD only need to cover what is new about this feature; say where an established
+     fact came from instead of asking the user to restate it.
+   - **A new product with nothing built yet.** There is no existing context to read, so
+     every gate question in this skill is live.
 
-2. **Test against the readiness gate** below. Record which gates pass, which fail, and for
-   each failure the specific decision that is missing.
+2. **If a brief exists, read the folder, not just the brief.** Read the brief and every
+   file in its folder in number order, including earlier questionnaires and everything the
+   user wrote into them — answers, corrections to assumptions, and free-text comments
+   alike. Read the comments first: they often invalidate a question or move something in or
+   out of scope. Rounds may span sessions — the files are the memory, not the conversation.
 
-3. **If any gate fails, write a questionnaire** to the next free number
-   (`NN-questions.md`) using `references/questionnaire-template.md`, and following
-   _Question design_ and _Rounds_ below. Then stop and tell the
-   user which file to fill in. Do not write a partial PRD, and do not write a draft PRD
-   alongside the questions — a draft invites approval of guesses instead of decisions.
+3. **If no brief exists, do not ask for one.** A brief is a convenience, not a requirement.
+   Ask the user a single quick question — "What would you like to create?" — one sentence
+   is enough. Then create `docs/<dated-folder>/01-questions.md` from
+   `references/questionnaire-template.md` and go straight to the readiness gate below to
+   work out what round 1 needs to ask. This first round does the job the brief would have
+   done: problem, users, and scope get written down for the first time in the user's own
+   answers, not in prose you invented on their behalf. Expect it to run longer than a normal
+   round, since nothing is decided yet — the ~10-question guideline in _Rounds_ still
+   applies; anything past it overflows to round 2.
 
-4. **When the user returns with answers**, start again at step 1. The folder now contains
-   their answers; re-test the gate; issue a narrower round if it still fails.
+4. **Test against the readiness gate** below. Record which gates pass, which fail, and for
+   each failure the specific decision that is missing. In feature mode, a gate already
+   settled by the existing project (commonly G8, the product name, or G6, the identity
+   model) passes immediately — note where you found the answer rather than asking again.
 
-5. **When every gate passes, write the PRD** to the next free number (`NN-prd.md`) by
+5. **If any gate fails, write a questionnaire** to the next free number (`NN-questions.md`)
+   using `references/questionnaire-template.md`, and following _Question design_ and
+   _Rounds_ below. Then stop and tell the user which file to fill in. Do not write a partial
+   PRD, and do not write a draft PRD alongside the questions — a draft invites approval of
+   guesses instead of decisions.
+
+6. **When the user returns with answers**, start again at step 2 (or step 1 if the project
+   context may have changed). The folder now contains their answers; re-test the gate; issue
+   a narrower round if it still fails.
+
+7. **When every gate passes, write the PRD** to the next free number (`NN-prd.md`) by
    copying `references/prd-template.md` and replacing its content, following the rules in
    _Markdown output_ below. The template's head comment carries the section-by-section
    writing notes and is addressed to you, not to the reader: **delete that comment from the
-   copy.** Fold the brief and every answer from every round into the document itself — see
-   _Self-containment_. Leave the brief and the questionnaires untouched; they stay as
-   history.
+   copy.** Fold the brief (if any) and every answer from every round into the document
+   itself — see _Self-containment_. Leave the brief and the questionnaires untouched; they
+   stay as history.
 
-6. **Check the rendered file.** Open it in a markdown viewer and confirm the contents links
+8. **Check the rendered file.** Open it in a markdown viewer and confirm the contents links
    jump to the right section, the checkboxes render as checkboxes, and no bracketed
    placeholder survived. There is no build step: the copy is finished the moment it is
    written.
 
-7. **Report** the file path, the page count, and any open questions that remain. Say the
+9. **Report** the file path, the page count, and any open questions that remain. Say the
    file opens in any text editor or markdown viewer — no server, no build step. State that
-   the PRD supersedes the brief, and that it is now the user's turn to critique it. Do not
-   start implementing. Once the user has approved it, building it is a separate step — this
-   skill does not commit and does not write code.
+   the PRD supersedes the brief and questionnaires, and that it is now the user's turn to
+   critique it. Do not start implementing. Once the user has approved it, building it is a
+   separate step — this skill does not commit and does not write code.
 
 ## Readiness gate
 
@@ -124,6 +167,12 @@ Write the PRD only when all of these hold:
 A gap is **blocking** if a builder would have to invent a business rule to proceed, or if
 getting it wrong means rework rather than adjustment. Blocking gaps must be asked.
 Non-blocking gaps become assumptions in section 12 — do not spend a round on them.
+
+**In feature mode**, apply every gate to the feature, not to the whole product. G3's
+boundary is this feature's scope, not a new product's. G8 passes immediately from the
+product name the existing project already carries. A gate the existing project has already
+settled for the whole product (say, G6's identity model) passes immediately too — cite
+where you found it instead of asking.
 
 ## Rounds
 
@@ -190,8 +239,9 @@ briefs are silent and builds go wrong.
 
 ## Self-containment
 
-The PRD replaces the brief, so everything the brief carried must survive inside it, and
-nothing may point outward to context the reader lacks.
+The PRD replaces the brief and every questionnaire (round 1 included, whether or not it
+followed a brief), so everything they carried must survive inside it, and nothing may point
+outward to context the reader lacks.
 
 - **Absorb, don't cite.** Restate the brief's and questionnaires' content in the PRD's own
   words in the right sections. Never write "as described in the brief", "see
@@ -210,6 +260,13 @@ nothing may point outward to context the reader lacks.
   business already uses, say in one clause what it is and why it matters.
 - **Assumptions are visible.** Anything you inferred rather than were told goes in section
   12, so a reader can tell fact from inference without asking you.
+
+**In feature mode**, absorb only what this feature needs — you do not have to restate the
+whole product's history or every existing capability. But anything this feature's own
+requirements, journeys, or rules depend on must still be spelled out in the PRD itself, the
+same as if there were no existing project: a domain term this feature introduces, a rule it
+changes, a journey it adds. "The existing product already handles this" is fine as a fact
+absorbed into a sentence; it is not fine as a reason to leave a requirement unwritten.
 
 ## Writing rules
 
