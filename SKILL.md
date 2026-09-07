@@ -1,6 +1,7 @@
 ---
 name: brief-to-prd
 description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
+license: MIT
 ---
 
 # Brief to PRD
@@ -42,10 +43,9 @@ docs/<dated-folder>/
 The PRD's number depends on how many rounds ran. Always use the next free number; never
 overwrite or renumber an existing file.
 
-In this repo the folder is a new dated one beside `docs/2026-08-08-setup` — never inside
-it. That folder is the scaffold's plan of record and `scripts/docs-check.mjs` compares it
-against the working tree file by file; a PRD dropped into it would be read as drift. Every
-other folder under `docs/` is unwatched, so a new one costs nothing.
+If the project has its own convention for where dated docs live and what a tool checks
+against them, use that convention instead — the requirement is only that the folder is
+new, and that nothing else in the project reads it as drift.
 
 **The PRD and the questionnaires are both markdown, but not the same kind of file.** A
 questionnaire is a working file the user edits by hand — numbered questions with blanks.
@@ -89,9 +89,8 @@ a questionnaire, or vice versa.
 7. **Report** the file path, the page count, and any open questions that remain. Say the
    file opens in any text editor or markdown viewer — no server, no build step. State that
    the PRD supersedes the brief, and that it is now the user's turn to critique it. Do not
-   start implementing. Once the user has approved it, building it here is the `feature`
-   skill's job, one vertical slice per capability — this skill does not commit and does not
-   write code.
+   start implementing. Once the user has approved it, building it is a separate step — this
+   skill does not commit and does not write code.
 
 ## Readiness gate
 
