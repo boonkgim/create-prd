@@ -45,9 +45,11 @@ overwrite or renumber an existing file.
 ## Steps
 
 1. **Read the folder, not just the brief.** Read the brief and every file in its folder in
-   number order, including earlier questionnaires and whatever answers the user wrote into
-   them. Rounds may span sessions — the files are the memory, not the conversation. If no
-   brief exists, ask the user for a paragraph on the problem and intended solution first.
+   number order, including earlier questionnaires and everything the user wrote into them —
+   answers, corrections to assumptions, and free-text comments alike. Read the comments
+   first: they often invalidate a question or move something in or out of scope. Rounds may
+   span sessions — the files are the memory, not the conversation. If no brief exists, ask
+   the user for a paragraph on the problem and intended solution first.
 
 2. **Test against the readiness gate** below. Record which gates pass, which fail, and for
    each failure the specific decision that is missing.
@@ -69,7 +71,8 @@ overwrite or renumber an existing file.
 6. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
    questionnaires, or the conversation. Every question it raises that the document cannot
    answer is a gap: fill it, or record it in section 12 as an open question. Check
-   specifically that every answer the user gave landed somewhere in the document.
+   specifically that every answer, correction, and comment the user wrote landed somewhere
+   in the document.
 
 7. **Report** the file path, the page count, and any open questions that remain. State that
    the PRD supersedes the brief, and that it is now the user's turn to critique it. Do not
@@ -114,9 +117,11 @@ must **converge**, not merely continue:
 - **Never re-ask an answered question.** Follow up only where an answer was ambiguous,
   incomplete, or contradicted another answer — and when you do, quote what they said and
   ask the narrow thing that is still open.
-- **New questions only from answers.** A later round may introduce a question only if an
-  answer opened a genuinely blocking gap. It may not introduce something you should have
-  asked in round 1.
+- **New questions only from what the user gave you.** A later round may introduce a
+  question only if an answer, a corrected assumption, or a free-text comment opened a
+  genuinely blocking gap. It may not introduce something you should have asked in round 1.
+- **An assumption marked `?` becomes a question.** If the user queries an assumption rather
+  than correcting it, promote it to a proper question with options and a default.
 - **Carry unanswered questions forward**, marked as still open, so nothing is silently
   dropped.
 - **Blocking first.** If only non-blocking gaps remain, stop asking: write the PRD and
@@ -174,10 +179,12 @@ nothing may point outward to context the reader lacks.
   words in the right sections. Never write "as described in the brief", "see
   `02-questions.md`", "per our discussion", or "as we agreed" — the reader has none of
   those.
-- **Answers become document content.** Every answer the user gives must land in a numbered
-  section, not just quietly shape a requirement. A deposit percentage belongs in business
-  rules; a capacity limit belongs in business rules and in an acceptance criterion. If an
-  answer changed your thinking but appears nowhere in the text, it is lost.
+- **Everything the user wrote becomes document content.** Answers, corrected assumptions,
+  and free-text comments must each land in a numbered section, not just quietly shape a
+  requirement. A deposit percentage belongs in business rules; a capacity limit belongs in
+  business rules and in an acceptance criterion; a worry mentioned in a comment box belongs
+  in constraints, non-goals, or section 12. If something the user wrote changed your
+  thinking but appears nowhere in the text, it is lost.
 - **Define the domain terms.** Any word the business uses in a particular way — slot,
   service, no-show, session, credit — gets defined at first use or in section 9. Do not
   assume the reader knows the trade.

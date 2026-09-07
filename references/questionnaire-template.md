@@ -10,8 +10,12 @@ answers in a separate file — matching them back is error-prone and loses the p
 # Questions — round <N>
 
 For: <product name> · Date: <YYYY-MM-DD>
-Answer in the **Answer:** line under each question. Overwrite the default if it is wrong;
-leave it as-is if it is fine. Write "don't know" freely — that is a useful answer.
+
+Write anywhere in this file — every section below has space for you, and none of it is
+read-only. Answer in the **Answer:** line under each question, overwrite a default if it
+is wrong, and leave it if it is fine. "Don't know" is a useful answer. So is "wrong
+question" — if one is built on a false premise, say that instead of answering it; it tells
+me more than an answer would.
 
 Nothing gets built until these are settled, so a rough answer now beats a perfect one
 later. There are <n> questions; most people finish in <n×1.5> minutes.
@@ -44,29 +48,70 @@ later. There are <n> questions; most people finish in <n×1.5> minutes.
 
 ## Confirm — I have assumed these; correct any that are wrong
 
-Glance down this list and mark anything wrong. Silence means agreed.
+Glance down this list. Blank means you agree and I will write it into the PRD as fact.
+Write the correction, a comment, or just `?` — a `?` turns it into a proper question with
+options next round.
 
-| # | Assumption | Correct? |
+| # | Assumption | Correction, comment, or `?` |
 |---|---|---|
-| A1 | <assumption> | leave blank if fine, or write the correction |
+| A1 | <assumption> | |
 | A2 | <assumption> | |
+
+**Anything else about these assumptions:**
 
 ## Still open from earlier rounds
 
-Carried forward, not yet answered. Skip if you would rather I decide.
+Carried forward, not yet answered. Skip any you would rather I decide.
 
-- **Q<N-1>.4** <question> — *if unanswered, I will assume <default> and record it.*
+### Q<N-1>.4 <question>
+
+*If left blank, I will assume <default> and record it as an assumption in the PRD.*
+
+**Answer:**
 
 ## Out of scope for now
 
-Noted, not asked, and deliberately deferred so this round stays short:
+Noted, not asked, and deliberately deferred so this round stays short. If any of these
+actually belongs in v1, say so — it is cheaper to move it now than after the PRD is
+written.
 
 - <thing> — <why it can wait>
+
+**Move anything into v1, or add something that should be deferred:**
+
+## Anything I did not ask about
+
+The most useful box on the page. I only know what I have been told, so this is where the
+things I could not have known belong. Prompts, if useful:
+
+- What would surprise someone building this?
+- What has gone wrong before, that this must not repeat?
+- Is there anyone else — a partner, an accountant, a regulator, a big customer — whose
+  requirements I should know about?
+- What are you quietly worried about?
+
+**Notes:**
 ```
 
 ---
 
 ## Writing notes
+
+**Every section is writable.** A section the user can only read is a section where their
+knowledge gets lost. Assumptions, deferrals, and carried-forward items all get a slot, and
+the free-text boxes exist because the highest-value thing a user can tell you is the thing
+you did not know to ask about.
+
+**Blank must mean one specific thing per section, and it must be stated.** Blank on an
+assumption means agreed and it goes into the PRD as fact. Blank on a carried-forward
+question means the stated default gets recorded. Blank on a deferral means it stays out of
+v1. If a reader cannot tell what their silence commits them to, they will answer nothing
+and mean nothing by it.
+
+**Read the free-text boxes before the answers.** They frequently invalidate a question,
+move something in or out of scope, or surface a constraint that reorders the whole round.
+Anything blocking that arrives this way is a legitimate new question for the next round —
+it came from the user, not from something you should have asked earlier.
 
 **Blocking questions only, in the top section.** If a question does not block a journey,
 requirement, or phase, it belongs in the assumptions table as something to confirm at a
