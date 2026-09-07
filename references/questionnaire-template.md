@@ -54,8 +54,9 @@ options next round.
 
 | # | Assumption | Correction, comment, or `?` |
 |---|---|---|
-| A1 | <assumption> | |
+| A1 | This should feel considered, not merely correct — polish is worth real build effort | |
 | A2 | <assumption> | |
+| A3 | <assumption> | |
 
 **Anything else about these assumptions:**
 
@@ -120,6 +121,16 @@ glance — or nowhere at all. A round bloated with nice-to-knows trains the user
 **The assumptions table is the pressure valve.** It is how a round stays short without the
 inferences going unchecked. Anything you can reasonably guess goes here, not into a
 question. Costing the user a glance instead of a sentence is the whole point.
+
+**Some assumptions are standing — put them in round 1 every time.** A few things shape a
+build so broadly that nobody thinks to state them, and their silence gets read as a
+preference rather than as a gap. How much polish is worth paying for is the clearest case:
+left unasked, every document downstream quietly assumes build effort is a cost to minimise,
+and real options get rejected on effort the user would happily have spent. It belongs in
+this table rather than in a question — it costs a glance, and the correction, when it comes,
+changes more of the work than most blocking answers do. Two others earn a standing row:
+who besides the user has to operate this once it exists, and what they would refuse to
+compromise on even if it cost time or money.
 
 **Every question carries its default.** A user must be able to reply "defaults are fine"
 and have that be a complete, usable answer to the entire round. If that reply would leave

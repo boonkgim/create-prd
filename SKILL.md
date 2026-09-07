@@ -245,6 +245,20 @@ business-side while still constraining the build correctly:
 **Unhappy paths get equal billing.** For every journey in section 6, write the failure
 branches. This is where agents improvise worst.
 
+**Waiting is a state, and it gets written down.** Every product with a save button has a
+moment between the press and the result, and a PRD that never mentions it gets a build where
+that moment is whatever the framework did by default. Give section 7 a short subsection —
+three requirements is usually enough — covering: every control that changes something shows
+it is working and cannot be pressed twice; a failure keeps what was typed and stays
+retryable; and, for the handful of things the business cannot be wrong about, nothing is
+shown as done before it is done. That last one is the one to write carefully. Showing a
+result optimistically and correcting it later is good practice for a list of favourites and
+a liability for a seat, a payment or a balance, so name which is which rather than stating a
+blanket rule — section 8 has usually already decided the list. These belong in section 7 as
+numbered requirements with acceptance criteria in section 11, not as a line in section 10,
+because they are testable and because every one of them will otherwise be argued about
+during the build.
+
 **Phase the work.** Section 13 orders delivery into 4–6 phases by dependency, each ending
 in something the user can click and verify. Keep each phase to roughly 30–50 requirements
 — beyond ~150–200 instructions in one pass, agents start dropping them.
