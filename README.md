@@ -1,0 +1,127 @@
+# brief-to-prd
+
+**A brief is not a spec. This turns yours into one before a coding agent starts guessing.**
+
+An [agent skill](https://agentskills.io) for Claude Code, Codex, and any other AI coding
+agent that reads `SKILL.md`. Hand it a short problem/solution brief and it expands it into
+a Product Requirements Document: lean enough to write in an hour, precise enough for an
+agent to build from, and free of every tech decision. Where the brief does not have enough
+in it to build from, the skill stops and asks — in writing, in numbered rounds — until it
+does.
+
+This repo's own [commit history](https://github.com/boonkgim/brief-to-prd/commits/main)
+*is* the skill's design record: every commit that shaped it carries the real prompt that
+drove the change, in order, from the first version through the two repos it was adopted
+into. Read it before you install anything.
+
+## Why you would want this
+
+A coding agent cannot read omission. Ask for "a booking site" and the agent will invent a
+currency, a cancellation policy, and a definition of "full" — usually the first plausible
+thing it lands on, silently, in code you now have to find and unwind. The fix is not a
+longer brief; it is a **document that cannot be written until the decisions exist**.
+
+- **The PRD supersedes the brief.** It is self-contained — nobody who reads it needs the
+  original brief, the questionnaire, or the conversation that produced it. Everything the
+  user said lands in the document, in the document's own words.
+- **The readiness gate is decisions, not detail.** Eight checks — money, time and
+  capacity, the v1 boundary, every journey's failure path, a measurable success, identity,
+  no unconfirmed guesses, the product has a name — and a thing can be *unknown* and still
+  pass, as long as the unknown is written down rather than guessed. What fails the gate is
+  a decision a builder would otherwise have to invent.
+- **Rounds converge, they don't just continue.** Each round is strictly narrower than the
+  last, never re-asks what is already answered, and carries a recommended default so
+  "defaults are fine" is always a complete answer. Nothing loops forever.
+- **It stays a business document.** No framework, database, language, or vendor is allowed
+  in the PRD — those are a separate decision made after this one is approved. A stray tech
+  preference in the brief gets moved to the assumptions section, not built into a
+  requirement.
+
+## Folder convention
+
+```
+docs/<dated-folder>/
+  01-brief.md
+  02-questions.md      <- round 1, the user types answers into it
+  03-questions.md      <- round 2, only if needed
+  04-prd.md            <- next free number once the gate passes
+```
+
+The PRD is one markdown file, capped at three pages. No images, no embedded scripts, no
+links to files the reader might not have — it opens correctly in any text editor,
+completely offline.
+
+## Install
+
+Paste this to your agent:
+
+```
+install the skill at https://github.com/boonkgim/brief-to-prd
+```
+
+It clones the repo and puts `SKILL.md` and `references/` where your tool looks for
+skills. To update it later, ask the same way, or `git pull` in the clone.
+
+<details>
+<summary>By hand</summary>
+
+```bash
+git clone https://github.com/boonkgim/brief-to-prd.git
+
+# Claude Code
+ln -s "$PWD/brief-to-prd" ~/.claude/skills/brief-to-prd
+
+# Codex
+ln -s "$PWD/brief-to-prd" ~/.agents/skills/brief-to-prd
+```
+
+Symlink into a project's `.claude/skills/` instead to scope it to one repo. Other tools
+read skills from their own location, and some take an upload; check yours.
+
+</details>
+
+A skill is instructions your agent will follow, so read `SKILL.md` before installing this
+or any other. It is one file, plus two reference templates it copies from.
+
+## Works with
+
+`SKILL.md` follows the [Agent Skills](https://agentskills.io) open standard, so it loads
+directly in any agent that reads the format — **Claude Code**, from `~/.claude/skills/`,
+**OpenAI Codex**, from `~/.agents/skills/`, and any other tool with its own skills
+directory. Where a tool does not read `SKILL.md` natively, paste it into the session or
+drop it into the rules file that tool already reads, such as `AGENTS.md`. Nothing in it is
+tool-specific — the whole skill is prose and markdown.
+
+## Usage
+
+Start from a short brief — a paragraph on the problem and the intended solution, saved as
+`docs/<dated-folder>/01-brief.md`. Tools that support invoking a skill by name take
+`/brief-to-prd` directly; otherwise just ask for a PRD from the brief.
+
+The skill reads the folder, tests it against the readiness gate, and either writes the
+next questionnaire round or writes the PRD. It never writes a partial PRD, never writes
+code, and never commits on your behalf.
+
+If this is useful, a ⭐ helps other people find it.
+
+## When not to use this
+
+- **The stack is already decided and you just want a spec that names it.** This skill
+  refuses to name one on purpose — if that constraint does not serve you, you want a
+  plainer PRD template instead.
+- **You already know every answer.** The questionnaire loop earns its keep on a brief that
+  is genuinely underspecified. Tell the skill to write the PRD now and it will, marking
+  whatever remains as an assumption — but if nothing is actually unknown, a round is
+  overhead.
+- **The change is small.** A one-paragraph feature addition to a system that already has a
+  PRD does not need a new one; use whatever this project already uses for incremental
+  requirements.
+
+## Author
+
+Built by **Khur Boon Kgim** at [boonkgim.com](https://boonkgim.com), where I write about
+practical AI for builders: AI agents, coding workflows, and shipping software.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
