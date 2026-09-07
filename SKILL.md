@@ -77,17 +77,11 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
    *Self-containment*. Leave the brief and the questionnaires untouched; they stay as
    history.
 
-6. **Inline the font**, so the finished file owes nothing to its folder:
-
-   ```
-   python3 .claude/skills/brief-to-prd/references/inline-font.py docs/<folder>/NN-prd.html
-   ```
-
-   This swaps the template's `<link>` to `font-inter.css` for the font-face rule itself.
-   Skip it and the PRD renders in whatever the reader happens to have installed the moment
-   it is copied anywhere else. The command is safe to re-run and says so if there is
-   nothing to do. Open the result in a browser afterwards — that is the check that the
-   markup is well-formed and the font actually arrived.
+6. **Open it in a browser.** Rendering is the proof the file is well-formed — a missing
+   `</section>`, an unescaped `<`, or a broken anchor is invisible in the source and
+   obvious on the page. Check that the contents links jump and that no bracketed
+   placeholder survived. There is no build step: the copy is finished the moment it is
+   written.
 
 7. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
    questionnaires, or the conversation. Every question it raises that the document cannot
@@ -264,14 +258,10 @@ it — not a server, not a build step, not an internet connection.
   template's and leave it alone unless the content needs something it lacks. No CDN links,
   no external stylesheets, no remote fonts, no images, no JavaScript. If the reader is
   offline on a plane, the document still looks right.
-- **The font ships inside the file.** Body text is Inter, vendored as a woff2 data URI so
-  the document does not depend on what happens to be installed on the reader's machine, and
-  still makes no network request. It lives in `references/font-inter.css`, which the
-  template pulls in with a `<link>` so it renders while you edit it in place; the step-6
-  command below swaps that link for the rule inlined. Never open `font-inter.css` — it is
-  one 63KB base64 line and reading it wastes an enormous amount of context for nothing.
-  Inter is under the SIL Open Font License; `references/Inter-OFL.txt` travels with it and
-  must not be deleted.
+- **System font stacks only** — a serif for reading, a sans for labels, and a mono for
+  code spans. Nothing is vendored and nothing is downloaded, so the file is small, opens
+  instantly, and has no build step between writing it and reading it. The serif is what
+  carries the prose: a PRD is read in long passages, and that is what a serif is for.
 - **Semantic structure.** One `<h1>` for the title, one `<section>` per numbered section
   with an `id` (`id="s6"`, `id="s8"`), `<h2>` for section headings, `<h3>` for subsections.
   Journeys use `<ol>`, requirement and rule lists use `<ul>`, tables use real `<table>`.
@@ -280,18 +270,26 @@ it — not a server, not a build step, not an internet connection.
   for journeys (`id="j-6-1"`) and acceptance criteria groups.
 - **Acceptance criteria are real checkboxes** — `<input type="checkbox" disabled>` — so the
   checklist reads as a checklist rather than as prose.
-- **Readable by default.** Body text at 17px, line height 1.68, measure capped near 70
-  characters. Headings are separated by space rather than by horizontal rules — a document
-  with a line above every heading reads as a form. The section number is a small muted
-  label above its heading, not a coloured digit in the reading line, which keeps "section 8"
-  findable without interrupting the sentence. The accent colour is for links, and nothing
-  else.
+- **Readable by default.** Body text is the serif at 18px, line height 1.7, measure capped
+  near 70 characters. Everything that is a label rather than a sentence — the section
+  number, the meta lines, table headers, the contents — is the sans, one or two steps
+  smaller and muted. That split is the whole type system: if you are adding a rule, ask
+  which of the two the text is, and use nothing else. Headings are separated by space
+  rather than by horizontal rules — a document with a line above every heading reads as a
+  form. The section number is a small muted label above its heading, not a coloured digit
+  in the reading line, which keeps "section 8" findable without interrupting the sentence.
+  The accent colour is for links, and nothing else.
 - **The text sits on a bordered card.** `main` is a panel — card background, hairline
   border, 10px radius — on a slightly darker page. On a wide screen a bare column of text
   has no edge to sit against; the border gives the document a shape and separates it from
   the sidebar. The card is the *only* panel: no nested cards, no callout boxes, no
   colour-coded blocks, no shadows. It disappears in print, where paper already supplies
   the edge.
+- **One house style, two documents.** This stylesheet is shared verbatim with the tech
+  stack document that follows the PRD — same palette, same serif and sans, same card, same
+  sidebar. They are read together and should look like one pair. If you change something
+  here, change `references/stack-template.html` in the `prd-to-stack` skill to match, or
+  the pair drifts apart one document at a time.
 - **Minimal, not decorated.** This is a document to be read end to end, not a dashboard.
   No icons, no badges, no tinted highlight blocks, no borders that are not doing work.
   Where something needs separating, use space; where space is not enough, use a hairline.
