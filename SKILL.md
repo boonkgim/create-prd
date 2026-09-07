@@ -1,6 +1,6 @@
 ---
 name: brief-to-prd
-description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from. The PRD stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, or produce a spec before vibe coding.
+description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from. The PRD is self-contained and supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, or produce a spec before vibe coding.
 ---
 
 # Brief to PRD
@@ -19,6 +19,10 @@ in observable terms.
 The PRD answers **what and why**. It never answers **how**. Stack, schema, hosting, and
 libraries are a separate decision made after the PRD is approved.
 
+The PRD also **supersedes the brief**. It is the single document handed to whoever builds
+this. A reader who has never seen the brief and was not present for any conversation about
+it must be able to build from the PRD alone.
+
 ## Steps
 
 1. **Read the brief.** Find it in `docs/` (most recent dated folder) unless the user names
@@ -31,13 +35,20 @@ libraries are a separate decision made after the PRD is approved.
 3. **Ask the gaps — once, in a batch.** Collect every genuine unknown and ask them
    together (see *Interview* below). Do not drip-feed questions across several turns. If
    the user declines to answer, write the PRD anyway under stated assumptions and list them
-   in section 11.
+   in section 12.
 
 4. **Write the PRD** to `docs/<same-folder-as-brief>/02-prd.md` using the structure in
-   `references/prd-template.md`. Keep the brief file untouched.
+   `references/prd-template.md`. Absorb the brief and every interview answer into the
+   document itself — see *Self-containment* below. Leave the brief file untouched; it stays
+   as history, superseded.
 
-5. **Report** the file path, the page count, and the open questions that still need the
-   user's decision. Do not start implementing.
+5. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief and
+   were not part of the conversation. Every question it raises that the document cannot
+   answer is a gap: fill it, or record it in section 12 as an open question. Check
+   specifically that every interview answer landed somewhere in the document.
+
+6. **Report** the file path, the page count, and the open questions that still need the
+   user's decision. State that the PRD now supersedes the brief. Do not start implementing.
 
 ## Interview
 
@@ -59,7 +70,33 @@ and that nobody can guess for the user:
 Group them, number them, and give a recommended default for each so the user can answer
 "defaults are fine."
 
+## Self-containment
+
+The PRD replaces the brief, so everything the brief carried must survive inside it, and
+nothing may point outward to context the reader lacks.
+
+- **Absorb, don't cite.** Restate the brief's content in the PRD's own words in the right
+  sections. Never write "as described in the brief", "per our discussion", "see the
+  original notes", or "as we agreed" — the reader has none of those.
+- **Interview answers become document content.** Every answer the user gives must land in a
+  numbered section, not just quietly shape a requirement. A deposit percentage belongs in
+  business rules; a capacity limit belongs in business rules and in an acceptance
+  criterion. If an answer changed your thinking but appears nowhere in the text, it is lost.
+- **Define the domain terms.** Any word the business uses in a particular way — slot,
+  service, no-show, session, credit — gets defined at first use or in section 9. Do not
+  assume the reader knows the trade.
+- **No unexplained proper nouns.** If the PRD names a person, team, tool, or system the
+  business already uses, say in one clause what it is and why it matters.
+- **Assumptions are visible.** Anything you inferred rather than were told goes in section
+  12, so a reader can tell fact from inference without asking you.
+
 ## Writing rules
+
+**Lead with the solution, in capability terms.** Section 2 tells a reader what is being
+built before they hit the detail — one sentence, then a short paragraph on what people can
+do with it and how that removes the pain in section 1. It is the section most likely to
+leak a stack, so check it: if it names a framework, database, or vendor, rewrite it as
+what the user sees and move the choice to section 12.
 
 **Requirements are observable.** Every functional requirement describes behavior a person
 could watch happen. Number them `FR-1`, `FR-2` … so the user can reference them in later
@@ -86,10 +123,10 @@ business-side while still constraining the build correctly:
 | "Next.js, server-rendered" | "Works on mobile browsers; booking page usable within 3s on 4G" |
 | "Deploy on Vercel" | "One person can run this without a sysadmin; hosting under $50/month" |
 
-**Unhappy paths get equal billing.** For every journey in section 5, write the failure
+**Unhappy paths get equal billing.** For every journey in section 6, write the failure
 branches. This is where agents improvise worst.
 
-**Phase the work.** Section 12 orders delivery into 4–6 phases by dependency, each ending
+**Phase the work.** Section 13 orders delivery into 4–6 phases by dependency, each ending
 in something the user can click and verify. Keep each phase to roughly 30–50 requirements
 — beyond ~150–200 instructions in one pass, agents start dropping them.
 
@@ -97,9 +134,9 @@ in something the user can click and verify. Keep each phase to roughly 30–50 r
 
 | Section | Length |
 |---|---|
-| 1–4 (problem, users, metrics, scope) | ~1 page |
-| 5–7 (journeys, requirements, business rules) | the bulk — most of the detail lives here |
-| 8–12 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages |
+| 1–5 (problem, solution, users, metrics, scope) | ~1–1.5 pages |
+| 6–8 (journeys, requirements, business rules) | the bulk — most of the detail lives here |
+| 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages |
 | Total | 3–6 pages |
 
 If it runs past 6 pages, the excess is almost always prose that should be a bullet, or
@@ -108,12 +145,15 @@ implementation detail that does not belong in a PRD.
 ## Constraints
 
 - **Never name a framework, language, database, library, cloud, or vendor** in the PRD.
-  If the brief names one, move it to section 11 as a stated preference for the tech
+  If the brief names one, move it to section 12 as a stated preference for the tech
   decision that follows, not as a requirement.
-- **No schemas, endpoints, file layouts, or pseudo-code.** Section 8 describes entities in
+- **No schemas, endpoints, file layouts, or pseudo-code.** Section 9 describes entities in
   plain business language only.
-- Never invent a business rule and present it as settled. Inferred rules go in section 11
+- Never invent a business rule and present it as settled. Inferred rules go in section 12
   as assumptions, flagged for confirmation.
+- **No dangling references.** The PRD may not depend on the brief, this conversation, a
+  chat thread, or anything the reader cannot open. Provenance in the header is a courtesy,
+  not a dependency.
 - Do not write code, scaffold a project, or pick a stack as part of this skill. Producing
   the PRD is the whole deliverable.
-- Do not modify the source brief.
+- Do not modify or delete the source brief. It is superseded, not replaced on disk.
