@@ -52,11 +52,11 @@ Glance down this list. Blank means you agree and I will write it into the PRD as
 Write the correction, a comment, or just `?` — a `?` turns it into a proper question with
 options next round.
 
-| # | Assumption | Correction, comment, or `?` |
-|---|---|---|
-| A1 | This should feel considered, not merely correct — polish is worth real build effort | |
-| A2 | <assumption> | |
-| A3 | <assumption> | |
+| #   | Assumption                                                                          | Correction, comment, or `?` |
+| --- | ----------------------------------------------------------------------------------- | --------------------------- |
+| A1  | This should feel considered, not merely correct — polish is worth real build effort |                             |
+| A2  | <assumption>                                                                        |                             |
+| A3  | <assumption>                                                                        |                             |
 
 **Anything else about these assumptions:**
 
@@ -66,7 +66,7 @@ Carried forward, not yet answered. Skip any you would rather I decide.
 
 ### Q<N-1>.4 <question>
 
-*If left blank, I will assume <default> and record it as an assumption in the PRD.*
+_If left blank, I will assume <default> and record it as an assumption in the PRD._
 
 **Answer:**
 

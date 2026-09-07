@@ -13,7 +13,7 @@ technology decisions**.
 
 A coding agent cannot read omission. Anything left implicit gets filled with the simplest
 thing the model can invent — usually the wrong thing. So the PRD states, positively:
-what is in scope, what is *not*, what the business rules are, and what "done" looks like
+what is in scope, what is _not_, what the business rules are, and what "done" looks like
 in observable terms.
 
 The PRD answers **what and why**. It never answers **how**. Stack, schema, hosting, and
@@ -42,6 +42,11 @@ docs/<dated-folder>/
 The PRD's number depends on how many rounds ran. Always use the next free number; never
 overwrite or renumber an existing file.
 
+In this repo the folder is a new dated one beside `docs/2026-08-08-setup` — never inside
+it. That folder is the scaffold's plan of record and `scripts/docs-check.mjs` compares it
+against the working tree file by file; a PRD dropped into it would be read as drift. Every
+other folder under `docs/` is unwatched, so a new one costs nothing.
+
 **The PRD is HTML; the questionnaires stay markdown.** The PRD is read far more often than
 it is edited, and it is the document handed to other people — so it is a finished, styled
 page that opens in a browser. A questionnaire is a working file the user writes into by
@@ -61,7 +66,7 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
 
 3. **If any gate fails, write a questionnaire** to the next free number
    (`NN-questions.md`) using `references/questionnaire-template.md`, and following
-   *Question design* and *Rounds* below. Then stop and tell the
+   _Question design_ and _Rounds_ below. Then stop and tell the
    user which file to fill in. Do not write a partial PRD, and do not write a draft PRD
    alongside the questions — a draft invites approval of guesses instead of decisions.
 
@@ -70,11 +75,11 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
 
 5. **When every gate passes, write the PRD** to the next free number (`NN-prd.html`) by
    copying `references/prd-template.html` and replacing its content, following the rules in
-   *HTML output* below. The template is a working HTML file — open it in a browser to see
+   _HTML output_ below. The template is a working HTML file — open it in a browser to see
    what a finished PRD looks like. Its head comment carries the section-by-section writing
    notes and is addressed to you, not to the reader: **delete that comment from the copy.**
    Fold the brief and every answer from every round into the document itself — see
-   *Self-containment*. Leave the brief and the questionnaires untouched; they stay as
+   _Self-containment_. Leave the brief and the questionnaires untouched; they stay as
    history.
 
 6. **Open it in a browser.** Rendering is the proof the file is well-formed — a missing
@@ -92,7 +97,9 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
 8. **Report** the file path, the page count, and any open questions that remain. Say the
    file opens in a browser by double-clicking it — no server, no build step. State that the
    PRD supersedes the brief, and that it is now the user's turn to critique it. Do not start
-   implementing.
+   implementing. Once the user has approved it, building it here is the `feature` skill's
+   job, one vertical slice per capability — this skill does not commit and does not write
+   code.
 
 ## Readiness gate
 
@@ -227,10 +234,10 @@ prompts.
 
 **Acceptance criteria are checkable.** No judgment words. Translate:
 
-| Don't write | Write |
-|---|---|
-| "Checkout should be fast" | "Confirmation screen appears within 5s of payment authorization" |
-| "Intuitive booking flow" | "A returning customer reaches paid confirmation in ≤3 screens" |
+| Don't write                 | Write                                                                              |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| "Checkout should be fast"   | "Confirmation screen appears within 5s of payment authorization"                   |
+| "Intuitive booking flow"    | "A returning customer reaches paid confirmation in ≤3 screens"                     |
 | "Handles errors gracefully" | "A declined card returns the user to payment with the booking held for 10 minutes" |
 
 **Non-goals are stated positively.** Never rely on omission. Write "Not in scope: refunds,
@@ -239,12 +246,12 @@ staff roles, email reminders, multi-location" — not silence.
 **Constraints are outcomes, not technologies.** This is what keeps the document
 business-side while still constraining the build correctly:
 
-| Don't write | Write |
-|---|---|
-| "Use Stripe" | "Customers pay by card; we never hold card numbers ourselves" |
-| "Postgres" | "Booking and payment history is retained indefinitely and exportable to CSV" |
-| "Next.js, server-rendered" | "Works on mobile browsers; booking page usable within 3s on 4G" |
-| "Deploy on Vercel" | "One person can run this without a sysadmin; hosting under $50/month" |
+| Don't write                | Write                                                                        |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| "Use Stripe"               | "Customers pay by card; we never hold card numbers ourselves"                |
+| "Postgres"                 | "Booking and payment history is retained indefinitely and exportable to CSV" |
+| "Next.js, server-rendered" | "Works on mobile browsers; booking page usable within 3s on 4G"              |
+| "Deploy on Vercel"         | "One person can run this without a sysadmin; hosting under $50/month"        |
 
 **Unhappy paths get equal billing.** For every journey in section 6, write the failure
 branches. This is where agents improvise worst.
@@ -300,13 +307,13 @@ it — not a server, not a build step, not an internet connection.
 - **The text sits on a bordered card.** `main` is a panel — card background, hairline
   border, 10px radius — on a slightly darker page. On a wide screen a bare column of text
   has no edge to sit against; the border gives the document a shape and separates it from
-  the sidebar. The card is the *only* panel: no nested cards, no callout boxes, no
+  the sidebar. The card is the _only_ panel: no nested cards, no callout boxes, no
   colour-coded blocks, no shadows.
-- **One house style, two documents.** This stylesheet is shared verbatim with the tech
-  stack document that follows the PRD — same palette, same serif and sans, same card, same
-  sidebar. They are read together and should look like one pair. If you change something
-  here, change `references/stack-template.html` in the `prd-to-stack` skill to match, or
-  the pair drifts apart one document at a time.
+- **One house style.** The stylesheet in `references/prd-template.html` is the house style;
+  take it verbatim. This repo carries no companion stack document — the stack is already
+  decided and lives in `CLAUDE.md` and the layer skills — so there is nothing here to keep
+  in sync. If you port this skill somewhere that does have one, that pair has to be kept
+  aligned by hand, one document at a time.
 - **Minimal, not decorated.** This is a document to be read end to end, not a dashboard.
   No icons, no badges, no tinted highlight blocks, no borders that are not doing work.
   Where something needs separating, use space; where space is not enough, use a hairline.
@@ -343,19 +350,19 @@ it — not a server, not a build step, not an internet connection.
   rather than to move a number. If you find a real gap in the PRD, the fix is to write the
   missing requirement or criterion, not to draw a picture of its absence.
 
-Everything in *Writing rules*, *Self-containment*, and *Constraints* applies unchanged. HTML
+Everything in _Writing rules_, _Self-containment_, and _Constraints_ applies unchanged. HTML
 is the presentation; it does not license a longer, more decorated, or more technical
 document. In particular, HTML is not a stack decision — the PRD still names no framework,
 database, or vendor anywhere in its content.
 
 ## Size targets
 
-| Section | Length |
-|---|---|
-| 1–5 (problem, solution, users, metrics, scope) | ~1–1.5 pages |
-| 6–8 (journeys, requirements, business rules) | the bulk — most of the detail lives here |
-| 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages |
-| Total | 3–6 pages |
+| Section                                                 | Length                                   |
+| ------------------------------------------------------- | ---------------------------------------- |
+| 1–5 (problem, solution, users, metrics, scope)          | ~1–1.5 pages                             |
+| 6–8 (journeys, requirements, business rules)            | the bulk — most of the detail lives here |
+| 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages                             |
+| Total                                                   | 3–6 pages                                |
 
 Pages here are a rough unit of reading length, not a paper measurement — roughly 500 words
 each. If it runs past 6, the excess is almost always prose that should be a bullet, or
