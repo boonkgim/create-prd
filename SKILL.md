@@ -305,22 +305,25 @@ it — not a server, not a build step, not an internet connection.
 - **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
   Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
   which is exactly the kind of loss this document exists to prevent.
-- **Two readers, and the second one cannot run the page.** This document is read by a human
-  in a browser and by a coding agent that sees only the file's text. Anything rendered at
-  runtime — DOM built by script, positions computed from measured elements — does not exist
-  for the agent. So the rule is not "no JavaScript"; it is **no fact may live only in
-  something that has to be executed to be seen.** Script is free to make the page nicer for
-  the human as long as every fact it presents is also present as text: prose, a real
-  `<table>`, or an inline `<script type="application/json">` data block the script renders
-  from. Write the facts once, render them twice.
-- **Navigable, and interactive only where it pays.** The template's table of contents is a
-  sticky sidebar above 68rem and a card at the top of the page below it — plain anchor links
-  and a CSS grid. Keep it. A PRD is read top to bottom and jumped around by section number,
-  and those two behaviours are the whole navigation requirement; a search box, a progress bar
-  and a back-to-top button still cost the reader more than they give. Collapsing a section is
-  now allowed where a section is genuinely reference material the reader scrolls past — but
-  it is a default-open disclosure, never a way to hide something the agent then has to
-  execute the page to find.
+- **Navigable, but not interactive.** The template's table of contents is a sticky sidebar
+  above 68rem and a card at the top of the page below it — plain anchor links and a CSS
+  grid, no JavaScript. Keep it. What stays out: collapsible sections, a search box, a
+  progress bar, a back-to-top button, anything that needs script. A PRD is read top to
+  bottom and jumped around by section number; those two behaviours are the whole navigation
+  requirement, and everything past them costs the reader more than it gives. There is a
+  second reason on top of the reader's: this document is also read by a coding agent that
+  sees only the file's text, and anything built at runtime does not exist for it. Keeping
+  the PRD scriptless is what makes the two audiences one audience.
+- **No illustrations, and that is deliberate.** Unlike the stack and data-model documents
+  that follow it, a PRD carries no diagrams. Its content is decisions, journeys and
+  requirements — prose and lists, which a picture cannot say more precisely. Do not add an
+  entity sketch, a coverage chart, a traceability matrix or a metrics dashboard. **Be
+  especially wary of a figure that scores the document against itself** — how many
+  requirements serve a metric, how many have a test. Those numbers require you to judge each
+  requirement, they land in the document reading as the owner's own claim rather than yours,
+  and the headline is usually meaningless: most requirements exist to make a product correct
+  rather than to move a number. If you find a real gap in the PRD, the fix is to write the
+  missing requirement or criterion, not to draw a picture of its absence.
 
 Everything in *Writing rules*, *Self-containment*, and *Constraints* applies unchanged. HTML
 is the presentation; it does not license a longer, more decorated, or more technical
