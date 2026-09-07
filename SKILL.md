@@ -1,6 +1,6 @@
 ---
 name: brief-to-prd
-description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is self-contained and supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
+description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained HTML file, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
 ---
 
 # Brief to PRD
@@ -34,13 +34,18 @@ Everything lives in the brief's folder, numbered in creation order:
 ```
 docs/<dated-folder>/
   01-brief.md
-  02-questions.md      <- round 1
+  02-questions.md      <- round 1, markdown: the user types answers into it
   03-questions.md      <- round 2, only if needed
-  04-prd.md            <- next free number once the gate passes
+  04-prd.html          <- next free number once the gate passes
 ```
 
 The PRD's number depends on how many rounds ran. Always use the next free number; never
 overwrite or renumber an existing file.
+
+**The PRD is HTML; the questionnaires stay markdown.** The PRD is read far more often than
+it is edited, and it is the document handed to other people — so it is a finished, styled
+page that opens in a browser. A questionnaire is a working file the user writes into by
+hand, so it stays plain markdown. Never write a questionnaire as HTML.
 
 ## Steps
 
@@ -63,10 +68,11 @@ overwrite or renumber an existing file.
 4. **When the user returns with answers**, start again at step 1. The folder now contains
    their answers; re-test the gate; issue a narrower round if it still fails.
 
-5. **When every gate passes, write the PRD** to the next free number (`NN-prd.md`) using
-   the structure in `references/prd-template.md`. Fold the brief and every answer from
-   every round into the document itself — see *Self-containment*. Leave the brief and the
-   questionnaires untouched; they stay as history.
+5. **When every gate passes, write the PRD** to the next free number (`NN-prd.html`) using
+   the structure in `references/prd-template.md` and the rules in *HTML output* below. Fold
+   the brief and every answer from every round into the document itself — see
+   *Self-containment*. Leave the brief and the questionnaires untouched; they stay as
+   history.
 
 6. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
    questionnaires, or the conversation. Every question it raises that the document cannot
@@ -74,9 +80,10 @@ overwrite or renumber an existing file.
    specifically that every answer, correction, and comment the user wrote landed somewhere
    in the document.
 
-7. **Report** the file path, the page count, and any open questions that remain. State that
-   the PRD supersedes the brief, and that it is now the user's turn to critique it. Do not
-   start implementing.
+7. **Report** the file path, the page count, and any open questions that remain. Say the
+   file opens in a browser by double-clicking it — no server, no build step. State that the
+   PRD supersedes the brief, and that it is now the user's turn to critique it. Do not start
+   implementing.
 
 ## Readiness gate
 
@@ -233,6 +240,43 @@ branches. This is where agents improvise worst.
 in something the user can click and verify. Keep each phase to roughly 30–50 requirements
 — beyond ~150–200 instructions in one pass, agents start dropping them.
 
+## HTML output
+
+The PRD is **one file that opens by double-clicking it**. Nothing else may be needed to read
+it — not a server, not a build step, not an internet connection.
+
+- **Self-contained.** All CSS goes in a single `<style>` block in the head. No CDN links, no
+  external stylesheets, no web fonts, no images, no JavaScript. A system font stack only.
+  If the reader is offline on a plane, the document still looks right.
+- **Semantic structure.** One `<h1>` for the title, one `<section>` per numbered section
+  with an `id` (`id="s6"`, `id="s8"`), `<h2>` for section headings, `<h3>` for subsections.
+  Journeys use `<ol>`, requirement and rule lists use `<ul>`, tables use real `<table>`.
+- **Requirements are addressable.** Every functional requirement gets
+  `id="fr-1"` on its list item so a later prompt or a comment can link straight to it. Same
+  for journeys (`id="j-6-1"`) and acceptance criteria groups.
+- **Acceptance criteria are real checkboxes** — `<input type="checkbox" disabled>` — so the
+  checklist reads as a checklist rather than as prose.
+- **Readable by default.** Body text around 17px, line height ~1.65, measure capped near
+  70 characters, generous space above headings. This is a document to be read end to end,
+  not a dashboard: no cards, no sidebars, no icons, no colored callout boxes competing for
+  attention. Use one accent color, for links and section numbers, and nothing else.
+- **Works in both themes.** Define the palette as CSS custom properties on `:root` and
+  override them inside `@media (prefers-color-scheme: dark)`. Never hard-code `color: #000`.
+- **Prints cleanly.** A `@media print` block: drop the background tint, keep the text black,
+  and set `break-inside: avoid` on tables and list items. People print PRDs for meetings.
+- **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
+  Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
+  which is exactly the kind of loss this document exists to prevent.
+- **No interactivity.** Tempting additions — collapsible sections, a sticky nav, a search
+  box, a progress bar — all cost the reader more than they give. A plain scrolling document
+  is the format. The one exception is the table of contents described in the template, which
+  is ordinary anchor links.
+
+Everything in *Writing rules*, *Self-containment*, and *Constraints* applies unchanged. HTML
+is the presentation; it does not license a longer, more decorated, or more technical
+document. In particular, HTML is not a stack decision — the PRD still names no framework,
+database, or vendor anywhere in its content.
+
 ## Size targets
 
 | Section | Length |
@@ -242,8 +286,9 @@ in something the user can click and verify. Keep each phase to roughly 30–50 r
 | 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages |
 | Total | 3–6 pages |
 
-If it runs past 6 pages, the excess is almost always prose that should be a bullet, or
-implementation detail that does not belong in a PRD.
+Pages meaning printed pages — use the browser's print preview if you need to check. If it
+runs past 6, the excess is almost always prose that should be a bullet, or implementation
+detail that does not belong in a PRD.
 
 ## Constraints
 
