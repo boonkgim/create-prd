@@ -1,6 +1,6 @@
 ---
 name: brief-to-prd
-description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained HTML file, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
+description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
 ---
 
 # Brief to PRD
@@ -34,9 +34,9 @@ Everything lives in the brief's folder, numbered in creation order:
 ```
 docs/<dated-folder>/
   01-brief.md
-  02-questions.md      <- round 1, markdown: the user types answers into it
+  02-questions.md      <- round 1, the user types answers into it
   03-questions.md      <- round 2, only if needed
-  04-prd.html          <- next free number once the gate passes
+  04-prd.md            <- next free number once the gate passes
 ```
 
 The PRD's number depends on how many rounds ran. Always use the next free number; never
@@ -47,10 +47,10 @@ it. That folder is the scaffold's plan of record and `scripts/docs-check.mjs` co
 against the working tree file by file; a PRD dropped into it would be read as drift. Every
 other folder under `docs/` is unwatched, so a new one costs nothing.
 
-**The PRD is HTML; the questionnaires stay markdown.** The PRD is read far more often than
-it is edited, and it is the document handed to other people — so it is a finished, styled
-page that opens in a browser. A questionnaire is a working file the user writes into by
-hand, so it stays plain markdown. Never write a questionnaire as HTML.
+**The PRD and the questionnaires are both markdown, but not the same kind of file.** A
+questionnaire is a working file the user edits by hand — numbered questions with blanks.
+The PRD is the finished document that replaces the brief. Never let PRD content leak into
+a questionnaire, or vice versa.
 
 ## Steps
 
@@ -73,33 +73,25 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
 4. **When the user returns with answers**, start again at step 1. The folder now contains
    their answers; re-test the gate; issue a narrower round if it still fails.
 
-5. **When every gate passes, write the PRD** to the next free number (`NN-prd.html`) by
-   copying `references/prd-template.html` and replacing its content, following the rules in
-   _HTML output_ below. The template is a working HTML file — open it in a browser to see
-   what a finished PRD looks like. Its head comment carries the section-by-section writing
-   notes and is addressed to you, not to the reader: **delete that comment from the copy.**
-   Fold the brief and every answer from every round into the document itself — see
+5. **When every gate passes, write the PRD** to the next free number (`NN-prd.md`) by
+   copying `references/prd-template.md` and replacing its content, following the rules in
+   _Markdown output_ below. The template's head comment carries the section-by-section
+   writing notes and is addressed to you, not to the reader: **delete that comment from the
+   copy.** Fold the brief and every answer from every round into the document itself — see
    _Self-containment_. Leave the brief and the questionnaires untouched; they stay as
    history.
 
-6. **Open it in a browser.** Rendering is the proof the file is well-formed — a missing
-   `</section>`, an unescaped `<`, or a broken anchor is invisible in the source and
-   obvious on the page. Check that the contents links jump and that no bracketed
+6. **Check the rendered file.** Open it in a markdown viewer and confirm the contents links
+   jump to the right section, the checkboxes render as checkboxes, and no bracketed
    placeholder survived. There is no build step: the copy is finished the moment it is
    written.
 
-7. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
-   questionnaires, or the conversation. Every question it raises that the document cannot
-   answer is a gap: fill it, or record it in section 12 as an open question. Check
-   specifically that every answer, correction, and comment the user wrote landed somewhere
-   in the document.
-
-8. **Report** the file path, the page count, and any open questions that remain. Say the
-   file opens in a browser by double-clicking it — no server, no build step. State that the
-   PRD supersedes the brief, and that it is now the user's turn to critique it. Do not start
-   implementing. Once the user has approved it, building it here is the `feature` skill's
-   job, one vertical slice per capability — this skill does not commit and does not write
-   code.
+7. **Report** the file path, the page count, and any open questions that remain. Say the
+   file opens in any text editor or markdown viewer — no server, no build step. State that
+   the PRD supersedes the brief, and that it is now the user's turn to critique it. Do not
+   start implementing. Once the user has approved it, building it here is the `feature`
+   skill's job, one vertical slice per capability — this skill does not commit and does not
+   write code.
 
 ## Readiness gate
 
@@ -274,99 +266,52 @@ during the build.
 in something the user can click and verify. Keep each phase to roughly 30–50 requirements
 — beyond ~150–200 instructions in one pass, agents start dropping them.
 
-## HTML output
+## Markdown output
 
-The PRD is **one file that opens by double-clicking it**. Nothing else may be needed to read
-it — not a server, not a build step, not an internet connection.
+The PRD is **one file that opens in any text editor or markdown viewer**. Nothing else may
+be needed to read it — not a server, not a build step, not an internet connection.
 
-- **Self-contained.** All CSS goes in a single `<style>` block in the head — take the
-  template's and leave it alone unless the content needs something it lacks. No CDN links,
-  no external stylesheets, no remote fonts, no images, no JavaScript. If the reader is
-  offline on a plane, the document still looks right.
-- **System font stacks only** — a serif for reading, a sans for labels, and a mono for
-  code spans. Nothing is vendored and nothing is downloaded, so the file is small, opens
-  instantly, and has no build step between writing it and reading it. The serif is what
-  carries the prose: a PRD is read in long passages, and that is what a serif is for.
-- **Semantic structure.** One `<h1>` for the title, one `<section>` per numbered section
-  with an `id` (`id="s6"`, `id="s8"`), `<h2>` for section headings, `<h3>` for subsections.
-  Journeys use `<ol>`, requirement and rule lists use `<ul>`, tables use real `<table>`.
-- **Requirements are addressable.** Every functional requirement gets
-  `id="fr-1"` on its list item so a later prompt or a comment can link straight to it. Same
-  for journeys (`id="j-6-1"`) and acceptance criteria groups.
-- **Acceptance criteria are real checkboxes** — `<input type="checkbox" disabled>` — so the
-  checklist reads as a checklist rather than as prose.
-- **Readable by default.** Body text is the serif at 18px, line height 1.7, measure capped
-  near 70 characters. Everything that is a label rather than a sentence — the section
-  number, the meta lines, table headers, the contents — is the sans, one or two steps
-  smaller and muted. That split is the whole type system: if you are adding a rule, ask
-  which of the two the text is, and use nothing else. Headings are separated by space
-  rather than by horizontal rules — a document with a line above every heading reads as a
-  form. The section number is a small muted label above its heading, not a coloured digit
-  in the reading line, which keeps "section 8" findable without interrupting the sentence.
-  The accent colour is for links, and nothing else.
-- **The text sits on a bordered card.** `main` is a panel — card background, hairline
-  border, 10px radius — on a slightly darker page. On a wide screen a bare column of text
-  has no edge to sit against; the border gives the document a shape and separates it from
-  the sidebar. The card is the _only_ panel: no nested cards, no callout boxes, no
-  colour-coded blocks, no shadows.
-- **One house style.** The stylesheet in `references/prd-template.html` is the house style;
-  take it verbatim. This repo carries no companion stack document — the stack is already
-  decided and lives in `CLAUDE.md` and the layer skills — so there is nothing here to keep
-  in sync. If you port this skill somewhere that does have one, that pair has to be kept
-  aligned by hand, one document at a time.
-- **Minimal, not decorated.** This is a document to be read end to end, not a dashboard.
-  No icons, no badges, no tinted highlight blocks, no borders that are not doing work.
-  Where something needs separating, use space; where space is not enough, use a hairline.
-  Restraint here is not austerity — it is what makes section 8 legible at the point someone
-  is trying to settle an argument with it.
-- **Works in both themes.** Define the palette as CSS custom properties on `:root` and
-  override them inside `@media (prefers-color-scheme: dark)`. Never hard-code `color: #000`.
-  If you change the stylesheet, open `references/prd-template.html` in a browser and check
-  both themes there — not on a real PRD.
-- **No print stylesheet.** Do not write one. These documents are read on screen, and a
-  `@media print` block is not free: it drags in rules about page breaks, baseline handling
-  and a second colour scheme that then get cited as reasons a diagram cannot move, cannot
-  be interactive, and must be hand-placed. Nobody prints a PRD; do not pay for it.
-- **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
-  Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
-  which is exactly the kind of loss this document exists to prevent.
-- **Navigable, but not interactive.** The template's table of contents is a sticky sidebar
-  above 68rem and a card at the top of the page below it — plain anchor links and a CSS
-  grid, no JavaScript. Keep it. What stays out: collapsible sections, a search box, a
-  progress bar, a back-to-top button, anything that needs script. A PRD is read top to
-  bottom and jumped around by section number; those two behaviours are the whole navigation
-  requirement, and everything past them costs the reader more than it gives. There is a
-  second reason on top of the reader's: this document is also read by a coding agent that
-  sees only the file's text, and anything built at runtime does not exist for it. Keeping
-  the PRD scriptless is what makes the two audiences one audience.
-- **No illustrations, and that is deliberate.** Unlike the stack and data-model documents
-  that follow it, a PRD carries no diagrams. Its content is decisions, journeys and
-  requirements — prose and lists, which a picture cannot say more precisely. Do not add an
-  entity sketch, a coverage chart, a traceability matrix or a metrics dashboard. **Be
-  especially wary of a figure that scores the document against itself** — how many
-  requirements serve a metric, how many have a test. Those numbers require you to judge each
-  requirement, they land in the document reading as the owner's own claim rather than yours,
-  and the headline is usually meaningless: most requirements exist to make a product correct
-  rather than to move a number. If you find a real gap in the PRD, the fix is to write the
-  missing requirement or criterion, not to draw a picture of its absence.
+- **Self-contained.** No images, no embedded scripts, no links to external files. If the
+  reader is offline on a plane, the document still reads exactly as written.
+- **Standard markdown only.** One `#` for the title, `##` per numbered section
+  (`## 6. User journeys`), `###` for subsections. Journeys use numbered lists, requirement
+  and rule lists use bullets, tables use real markdown tables. Nothing that needs a
+  non-standard extension or a renderer plugin.
+- **Requirements are addressable by name.** Give every functional requirement a bold label
+  — `**FR-1**` — at the start of its line, numbered consecutively across the whole
+  document, never reused after a requirement is deleted. Later sections and later prompts
+  reference it as "FR-1" in prose; markdown has no reliable cross-file anchor, so do not
+  build a link that depends on one.
+- **Acceptance criteria are real checkboxes** — `- [ ] criterion` — so the checklist reads
+  as a checklist rather than as prose.
+- **A contents list at the top**, one line per section, linking to the heading's generated
+  anchor (`[User journeys](#6-user-journeys)`). Match the heading text exactly, including
+  the number, since the anchor is derived from it.
+- **Escape the content.** Business copy contains `*`, `_`, `|`, and `#`. Escape or wrap in
+  backticks anything that would otherwise be read as markdown syntax — especially inside
+  table cells, where a stray `|` silently breaks the row.
+- **No illustrations.** A PRD carries no diagrams, coverage charts, or figures that score
+  the document against itself. Its content is decisions, journeys, and requirements — prose
+  and lists say them more precisely than a picture. If you find a real gap, write the
+  missing requirement, not a picture of its absence.
 
-Everything in _Writing rules_, _Self-containment_, and _Constraints_ applies unchanged. HTML
-is the presentation; it does not license a longer, more decorated, or more technical
-document. In particular, HTML is not a stack decision — the PRD still names no framework,
+Everything in _Writing rules_, _Self-containment_, and _Constraints_ applies unchanged.
+Markdown is the presentation; it does not license a longer or more technical document. In
+particular, the file format is not a stack decision — the PRD still names no framework,
 database, or vendor anywhere in its content.
 
 ## Size targets
 
-| Section                                                 | Length                                   |
-| ------------------------------------------------------- | ---------------------------------------- |
-| 1–5 (problem, solution, users, metrics, scope)          | ~1–1.5 pages                             |
-| 6–8 (journeys, requirements, business rules)            | the bulk — most of the detail lives here |
-| 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages                             |
-| Total                                                   | 3–6 pages                                |
+| Section                                                 | Length                   |
+| -------------------------------------------------------- | ------------------------ |
+| 1–5 (problem, solution, users, metrics, scope)          | ~0.5 page                |
+| 6–8 (journeys, requirements, business rules)            | ~1.5–2 pages — the bulk  |
+| 9–13 (data, constraints, acceptance, questions, phases) | ~0.5–1 page              |
+| **Total**                                               | **3 pages max**          |
 
-Pages here are a rough unit of reading length, not a paper measurement — roughly 500 words
-each. If it runs past 6, the excess is almost always prose that should be a bullet, or
-implementation detail that does not belong in a PRD.
+A page here is a rough unit of reading length, not a paper measurement — roughly 500 words.
+Three pages is a hard cap, not a target to grow into: if a draft runs past it, cut prose to
+a bullet or drop detail that belongs in the later stack decision, rather than add a page.
 
 ## Constraints
 
