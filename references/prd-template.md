@@ -3,9 +3,9 @@
 Copy this structure. Delete sections that genuinely do not apply; do not delete a section
 because it is hard to fill in — that is usually the section that matters most.
 
-The finished document must stand on its own. Someone who has never read the brief and was
-never in the room must be able to build from it without asking a question you have not
-already answered or flagged.
+The finished document must stand on its own. Someone who has never read the brief or the
+questionnaires, and was never in the room, must be able to build from it without asking a
+question you have not already answered or flagged.
 
 ---
 
@@ -13,7 +13,7 @@ already answered or flagged.
 # PRD: <Product name>
 
 Owner: <name> · Date: <YYYY-MM-DD> · Status: Draft
-Supersedes: <path to brief> — kept as history; this document is the source of truth.
+Supersedes: <brief and questionnaire filenames> — kept as history; this is the source of truth.
 
 ## 1. Problem
 
