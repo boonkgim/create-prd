@@ -283,8 +283,7 @@ it — not a server, not a build step, not an internet connection.
   border, 10px radius — on a slightly darker page. On a wide screen a bare column of text
   has no edge to sit against; the border gives the document a shape and separates it from
   the sidebar. The card is the *only* panel: no nested cards, no callout boxes, no
-  colour-coded blocks, no shadows. It disappears in print, where paper already supplies
-  the edge.
+  colour-coded blocks, no shadows.
 - **One house style, two documents.** This stylesheet is shared verbatim with the tech
   stack document that follows the PRD — same palette, same serif and sans, same card, same
   sidebar. They are read together and should look like one pair. If you change something
@@ -299,17 +298,29 @@ it — not a server, not a build step, not an internet connection.
   override them inside `@media (prefers-color-scheme: dark)`. Never hard-code `color: #000`.
   If you change the stylesheet, open `references/prd-template.html` in a browser and check
   both themes there — not on a real PRD.
-- **Prints cleanly.** A `@media print` block: drop the background tint, keep the text black,
-  and set `break-inside: avoid` on tables and list items. People print PRDs for meetings.
+- **No print stylesheet.** Do not write one. These documents are read on screen, and a
+  `@media print` block is not free: it drags in rules about page breaks, baseline handling
+  and a second colour scheme that then get cited as reasons a diagram cannot move, cannot
+  be interactive, and must be hand-placed. Nobody prints a PRD; do not pay for it.
 - **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
   Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
   which is exactly the kind of loss this document exists to prevent.
-- **Navigable, but not interactive.** The template's table of contents is a sticky sidebar
-  above 68rem and a card at the top of the page below it — plain anchor links and a CSS
-  grid, no JavaScript. Keep it. What stays out: collapsible sections, a search box, a
-  progress bar, a back-to-top button, anything that needs script. A PRD is read top to
-  bottom and jumped around by section number; those two behaviors are the whole navigation
-  requirement, and everything past them costs the reader more than it gives.
+- **Two readers, and the second one cannot run the page.** This document is read by a human
+  in a browser and by a coding agent that sees only the file's text. Anything rendered at
+  runtime — DOM built by script, positions computed from measured elements — does not exist
+  for the agent. So the rule is not "no JavaScript"; it is **no fact may live only in
+  something that has to be executed to be seen.** Script is free to make the page nicer for
+  the human as long as every fact it presents is also present as text: prose, a real
+  `<table>`, or an inline `<script type="application/json">` data block the script renders
+  from. Write the facts once, render them twice.
+- **Navigable, and interactive only where it pays.** The template's table of contents is a
+  sticky sidebar above 68rem and a card at the top of the page below it — plain anchor links
+  and a CSS grid. Keep it. A PRD is read top to bottom and jumped around by section number,
+  and those two behaviours are the whole navigation requirement; a search box, a progress bar
+  and a back-to-top button still cost the reader more than they give. Collapsing a section is
+  now allowed where a section is genuinely reference material the reader scrolls past — but
+  it is a default-open disclosure, never a way to hide something the agent then has to
+  execute the page to find.
 
 Everything in *Writing rules*, *Self-containment*, and *Constraints* applies unchanged. HTML
 is the presentation; it does not license a longer, more decorated, or more technical
@@ -325,9 +336,9 @@ database, or vendor anywhere in its content.
 | 9–13 (data, constraints, acceptance, questions, phases) | ~1–1.5 pages |
 | Total | 3–6 pages |
 
-Pages meaning printed pages — use the browser's print preview if you need to check. If it
-runs past 6, the excess is almost always prose that should be a bullet, or implementation
-detail that does not belong in a PRD.
+Pages here are a rough unit of reading length, not a paper measurement — roughly 500 words
+each. If it runs past 6, the excess is almost always prose that should be a bullet, or
+implementation detail that does not belong in a PRD.
 
 ## Constraints
 
