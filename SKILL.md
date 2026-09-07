@@ -118,6 +118,9 @@ Write the PRD only when all of these hold:
   person can see of their own history, and what the operator can see or change.
 - **G7 — Nothing rests on an unconfirmed guess.** Every inference you made is either
   confirmed by the user or written down as an assumption the user has read.
+- **G8 — The product is named.** The business/site has a name the user typed — a working
+  name is fine if flagged as such, but a builder must never invent one: an invented brand
+  leaks into page titles, mock data, and copy, and reads as fact.
 
 A gap is **blocking** if a builder would have to invent a business rule to proceed, or if
 getting it wrong means rework rather than adjustment. Blocking gaps must be asked.
