@@ -77,13 +77,25 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
    *Self-containment*. Leave the brief and the questionnaires untouched; they stay as
    history.
 
-6. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
+6. **Inline the font**, so the finished file owes nothing to its folder:
+
+   ```
+   python3 .claude/skills/brief-to-prd/references/inline-font.py docs/<folder>/NN-prd.html
+   ```
+
+   This swaps the template's `<link>` to `font-inter.css` for the font-face rule itself.
+   Skip it and the PRD renders in whatever the reader happens to have installed the moment
+   it is copied anywhere else. The command is safe to re-run and says so if there is
+   nothing to do. Open the result in a browser afterwards — that is the check that the
+   markup is well-formed and the font actually arrived.
+
+7. **Read it back cold.** Re-read the finished PRD as if you had never seen the brief, the
    questionnaires, or the conversation. Every question it raises that the document cannot
    answer is a gap: fill it, or record it in section 12 as an open question. Check
    specifically that every answer, correction, and comment the user wrote landed somewhere
    in the document.
 
-7. **Report** the file path, the page count, and any open questions that remain. Say the
+8. **Report** the file path, the page count, and any open questions that remain. Say the
    file opens in a browser by double-clicking it — no server, no build step. State that the
    PRD supersedes the brief, and that it is now the user's turn to critique it. Do not start
    implementing.
@@ -250,8 +262,16 @@ it — not a server, not a build step, not an internet connection.
 
 - **Self-contained.** All CSS goes in a single `<style>` block in the head — take the
   template's and leave it alone unless the content needs something it lacks. No CDN links,
-  no external stylesheets, no web fonts, no images, no JavaScript. A system font stack only.
-  If the reader is offline on a plane, the document still looks right.
+  no external stylesheets, no remote fonts, no images, no JavaScript. If the reader is
+  offline on a plane, the document still looks right.
+- **The font ships inside the file.** Body text is Inter, vendored as a woff2 data URI so
+  the document does not depend on what happens to be installed on the reader's machine, and
+  still makes no network request. It lives in `references/font-inter.css`, which the
+  template pulls in with a `<link>` so it renders while you edit it in place; the step-6
+  command below swaps that link for the rule inlined. Never open `font-inter.css` — it is
+  one 63KB base64 line and reading it wastes an enormous amount of context for nothing.
+  Inter is under the SIL Open Font License; `references/Inter-OFL.txt` travels with it and
+  must not be deleted.
 - **Semantic structure.** One `<h1>` for the title, one `<section>` per numbered section
   with an `id` (`id="s6"`, `id="s8"`), `<h2>` for section headings, `<h3>` for subsections.
   Journeys use `<ol>`, requirement and rule lists use `<ul>`, tables use real `<table>`.
@@ -260,10 +280,23 @@ it — not a server, not a build step, not an internet connection.
   for journeys (`id="j-6-1"`) and acceptance criteria groups.
 - **Acceptance criteria are real checkboxes** — `<input type="checkbox" disabled>` — so the
   checklist reads as a checklist rather than as prose.
-- **Readable by default.** Body text around 17px, line height ~1.65, measure capped near
-  70 characters, generous space above headings. This is a document to be read end to end,
-  not a dashboard: no cards, no sidebars, no icons, no colored callout boxes competing for
-  attention. Use one accent color, for links and section numbers, and nothing else.
+- **Readable by default.** Body text at 17px, line height 1.68, measure capped near 70
+  characters. Headings are separated by space rather than by horizontal rules — a document
+  with a line above every heading reads as a form. The section number is a small muted
+  label above its heading, not a coloured digit in the reading line, which keeps "section 8"
+  findable without interrupting the sentence. The accent colour is for links, and nothing
+  else.
+- **The text sits on a bordered card.** `main` is a panel — card background, hairline
+  border, 10px radius — on a slightly darker page. On a wide screen a bare column of text
+  has no edge to sit against; the border gives the document a shape and separates it from
+  the sidebar. The card is the *only* panel: no nested cards, no callout boxes, no
+  colour-coded blocks, no shadows. It disappears in print, where paper already supplies
+  the edge.
+- **Minimal, not decorated.** This is a document to be read end to end, not a dashboard.
+  No icons, no badges, no tinted highlight blocks, no borders that are not doing work.
+  Where something needs separating, use space; where space is not enough, use a hairline.
+  Restraint here is not austerity — it is what makes section 8 legible at the point someone
+  is trying to settle an argument with it.
 - **Works in both themes.** Define the palette as CSS custom properties on `:root` and
   override them inside `@media (prefers-color-scheme: dark)`. Never hard-code `color: #000`.
   If you change the stylesheet, open `references/prd-template.html` in a browser and check
@@ -274,7 +307,7 @@ it — not a server, not a build step, not an internet connection.
   Escape entities properly — a stray `<` silently eats the rest of a paragraph in a browser,
   which is exactly the kind of loss this document exists to prevent.
 - **Navigable, but not interactive.** The template's table of contents is a sticky sidebar
-  above 64rem and a block at the top of the page below it — plain anchor links and a CSS
+  above 68rem and a card at the top of the page below it — plain anchor links and a CSS
   grid, no JavaScript. Keep it. What stays out: collapsible sections, a search box, a
   progress bar, a back-to-top button, anything that needs script. A PRD is read top to
   bottom and jumped around by section number; those two behaviors are the whole navigation
