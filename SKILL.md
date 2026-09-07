@@ -104,7 +104,8 @@ Write the PRD only when all of these hold:
 
 - **G1 — Money is decided.** Every point where money changes hands has a stated rule: who
   pays, how much, when, and what happens when it fails or must be reversed. If no money
-  moves in v1, that is itself stated.
+  moves in v1, that is itself stated. "How much" includes the **currency, named by the
+  user** (and how tax appears in displayed prices) — a builder must never default to one.
 - **G2 — Time and capacity are decided.** Anything scheduled, limited, or expiring has a
   rule: timezone, operating hours, lead time, duration, how many at once, and what happens
   when two people want the same thing.
