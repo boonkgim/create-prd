@@ -68,9 +68,12 @@ hand, so it stays plain markdown. Never write a questionnaire as HTML.
 4. **When the user returns with answers**, start again at step 1. The folder now contains
    their answers; re-test the gate; issue a narrower round if it still fails.
 
-5. **When every gate passes, write the PRD** to the next free number (`NN-prd.html`) using
-   the structure in `references/prd-template.md` and the rules in *HTML output* below. Fold
-   the brief and every answer from every round into the document itself — see
+5. **When every gate passes, write the PRD** to the next free number (`NN-prd.html`) by
+   copying `references/prd-template.html` and replacing its content, following the rules in
+   *HTML output* below. The template is a working HTML file — open it in a browser to see
+   what a finished PRD looks like. Its head comment carries the section-by-section writing
+   notes and is addressed to you, not to the reader: **delete that comment from the copy.**
+   Fold the brief and every answer from every round into the document itself — see
    *Self-containment*. Leave the brief and the questionnaires untouched; they stay as
    history.
 
@@ -245,8 +248,9 @@ in something the user can click and verify. Keep each phase to roughly 30–50 r
 The PRD is **one file that opens by double-clicking it**. Nothing else may be needed to read
 it — not a server, not a build step, not an internet connection.
 
-- **Self-contained.** All CSS goes in a single `<style>` block in the head. No CDN links, no
-  external stylesheets, no web fonts, no images, no JavaScript. A system font stack only.
+- **Self-contained.** All CSS goes in a single `<style>` block in the head — take the
+  template's and leave it alone unless the content needs something it lacks. No CDN links,
+  no external stylesheets, no web fonts, no images, no JavaScript. A system font stack only.
   If the reader is offline on a plane, the document still looks right.
 - **Semantic structure.** One `<h1>` for the title, one `<section>` per numbered section
   with an `id` (`id="s6"`, `id="s8"`), `<h2>` for section headings, `<h3>` for subsections.
@@ -262,6 +266,8 @@ it — not a server, not a build step, not an internet connection.
   attention. Use one accent color, for links and section numbers, and nothing else.
 - **Works in both themes.** Define the palette as CSS custom properties on `:root` and
   override them inside `@media (prefers-color-scheme: dark)`. Never hard-code `color: #000`.
+  If you change the stylesheet, open `references/prd-template.html` in a browser and check
+  both themes there — not on a real PRD.
 - **Prints cleanly.** A `@media print` block: drop the background tint, keep the text black,
   and set `break-inside: avoid` on tables and list items. People print PRDs for meetings.
 - **Escape the content.** Business copy contains `&`, `<`, `>`, quotes, and em dashes.
