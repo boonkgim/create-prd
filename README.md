@@ -1,4 +1,4 @@
-# brief-to-prd
+# create-prd
 
 **A brief is not a spec. This turns yours into one before a coding agent starts guessing.**
 
@@ -9,7 +9,7 @@ agent to build from, and free of every tech decision. Where the brief does not h
 in it to build from, the skill stops and asks — in writing, in numbered rounds — until it
 does.
 
-This repo's own [commit history](https://github.com/boonkgim/brief-to-prd/commits/main)
+This repo's own [commit history](https://github.com/boonkgim/create-prd/commits/main)
 *is* the skill's design record: every commit that shaped it carries the real prompt that
 drove the change, in order, from the first version through the two repos it was adopted
 into. Read it before you install anything.
@@ -56,7 +56,7 @@ completely offline.
 Paste this to your agent:
 
 ```
-install the skill at https://github.com/boonkgim/brief-to-prd
+install the skill at https://github.com/boonkgim/create-prd
 ```
 
 It clones the repo and puts `SKILL.md` and `references/` where your tool looks for
@@ -66,13 +66,13 @@ skills. To update it later, ask the same way, or `git pull` in the clone.
 <summary>By hand</summary>
 
 ```bash
-git clone https://github.com/boonkgim/brief-to-prd.git
+git clone https://github.com/boonkgim/create-prd.git
 
 # Claude Code
-ln -s "$PWD/brief-to-prd" ~/.claude/skills/brief-to-prd
+ln -s "$PWD/create-prd" ~/.claude/skills/create-prd
 
 # Codex
-ln -s "$PWD/brief-to-prd" ~/.agents/skills/brief-to-prd
+ln -s "$PWD/create-prd" ~/.agents/skills/create-prd
 ```
 
 Symlink into a project's `.claude/skills/` instead to scope it to one repo. Other tools
@@ -96,7 +96,7 @@ tool-specific — the whole skill is prose and markdown.
 
 Start from a short brief — a paragraph on the problem and the intended solution, saved as
 `docs/<dated-folder>/01-brief.md`. Tools that support invoking a skill by name take
-`/brief-to-prd` directly; otherwise just ask for a PRD from the brief.
+`/create-prd` directly; otherwise just ask for a PRD from the brief.
 
 The skill reads the folder, tests it against the readiness gate, and either writes the
 next questionnaire round or writes the PRD. It never writes a partial PRD, never writes

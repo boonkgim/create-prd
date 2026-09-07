@@ -1,10 +1,10 @@
 ---
-name: brief-to-prd
+name: create-prd
 description: Turn a short project brief into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until the brief is decision-complete. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, answer a questionnaire round, or produce a spec before vibe coding.
 license: MIT
 ---
 
-# Brief to PRD
+# Create PRD
 
 Expand a short problem/solution brief into a Product Requirements Document that is
 **lean enough to write in an hour, precise enough for an agent to build from, and free of
