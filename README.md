@@ -70,7 +70,7 @@ docs/<dated-folder>/
   03-prd.md            <- next free number once the gate passes
 ```
 
-The PRD is one markdown file, capped at three pages. No images, no embedded scripts, no
+The PRD is one markdown file, as long as the decisions it carries. No images, no embedded scripts, no
 links to files the reader might not have — it opens correctly in any text editor,
 completely offline.
 

@@ -12,8 +12,9 @@ fill in — that is usually the section that matters most. If you delete a secti
 its contents entry too, and do not renumber the survivors: a reader referring to
 "section 8" must land on business rules.
 
-Keep this document to three pages (~1500 words) total. Cut prose to a bullet before
-cutting content — see Size targets in SKILL.md for the per-section budget.
+There is no page or word cap — length is set by the decisions this product needs. Cut
+prose to a bullet before cutting content, never the reverse, and say each thing once. See
+Length in SKILL.md.
 
 Writing notes
 --------------

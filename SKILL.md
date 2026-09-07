@@ -1,6 +1,6 @@
 ---
 name: create-prd
-description: Turn a short project brief - or, if there is none, a one-line answer to "what would you like to create?" - into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until it is decision-complete. Works both for standing up a new product and for adding a feature to a project that already exists. The PRD is written as a single self-contained Markdown file capped at three pages, supersedes the brief and questionnaires, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, start a PRD with no brief at all, spec out a new feature for an existing project, answer a questionnaire round, or produce a spec before vibe coding.
+description: Turn a short project brief - or, if there is none, a one-line answer to "what would you like to create?" - into a lean but build-ready PRD that a coding agent can implement from, asking the user numbered questionnaire rounds until it is decision-complete. Works both for standing up a new product and for adding a feature to a project that already exists. The PRD is written as a single self-contained Markdown file, supersedes the brief and questionnaires, and stays a business document - no tech stack, no schemas, no framework choices. Use when the user asks to write a PRD, expand a brief into requirements, start a PRD with no brief at all, spec out a new feature for an existing project, answer a questionnaire round, or produce a spec before vibe coding.
 license: MIT
 ---
 
@@ -129,7 +129,7 @@ questionnaire, or vice versa.
    placeholder survived. There is no build step: the copy is finished the moment it is
    written.
 
-9. **Report** the file path, the page count, and any open questions that remain. Say the
+9. **Report** the file path, its length, and any open questions that remain. Say the
    file opens in any text editor or markdown viewer — no server, no build step. State that
    the PRD supersedes the brief and questionnaires, and that it is now the user's turn to
    critique it. Do not start implementing. Once the user has approved it, building it is a
@@ -352,22 +352,30 @@ be needed to read it — not a server, not a build step, not an internet connect
   missing requirement, not a picture of its absence.
 
 Everything in _Writing rules_, _Self-containment_, and _Constraints_ applies unchanged.
-Markdown is the presentation; it does not license a longer or more technical document. In
+Markdown is the presentation; it does not license a more technical document. In
 particular, the file format is not a stack decision — the PRD still names no framework,
 database, or vendor anywhere in its content.
 
-## Size targets
+## Length
 
-| Section                                                 | Length                   |
-| -------------------------------------------------------- | ------------------------ |
-| 1–5 (problem, solution, users, metrics, scope)          | ~0.5 page                |
-| 6–8 (journeys, requirements, business rules)            | ~1.5–2 pages — the bulk  |
-| 9–13 (data, constraints, acceptance, questions, phases) | ~0.5–1 page              |
-| **Total**                                               | **3 pages max**          |
+**There is no page or word cap.** The PRD is as long as the decisions it carries and no
+longer. A document that drops a business rule to save a paragraph has failed at the only
+job it has — an omitted rule does not disappear, it gets invented during the build.
 
-A page here is a rough unit of reading length, not a paper measurement — roughly 500 words.
-Three pages is a hard cap, not a target to grow into: if a draft runs past it, cut prose to
-a bullet or drop detail that belongs in the later stack decision, rather than add a page.
+What that does not license is padding. Length must come from content, not prose:
+
+- **Cut prose to a bullet before cutting content**, never the reverse.
+- **Sections 6–8 are the bulk.** Journeys, requirements and business rules are what a
+  builder actually reads. Sections 1–5 orient and should stay tight; 9–13 are reference.
+- **Say each thing once.** A rule stated in section 8 need not be restated in section 7 —
+  point at it by requirement id instead.
+- **Detail belonging to the later stack decision goes in section 12**, as a line, not
+  expanded in the body.
+
+Long documents get skimmed, so let the structure carry the reader: the contents list, the
+`FR-` ids and the phases in section 13 all exist so nobody has to read end to end to find
+one decision. If a PRD is long enough that a single build pass would start dropping
+requirements, that is a phasing problem rather than a length problem — see _Phase the work_.
 
 ## Constraints
 
