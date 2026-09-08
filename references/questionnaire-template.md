@@ -1,7 +1,7 @@
 # Questionnaire template
 
-Written to `NN-questions.md` in the folder, where `NN` is the next free number. When there
-is no brief, round 1 uses this same template and the same `01-questions.md` naming, but
+Written to `NN-create-prd-questions.md` in the folder, where `NN` is the next free number. When there
+is no brief, round 1 uses this same template and the same `01-create-prd-questions.md` naming, but
 stands in for the brief — its questions cover the problem, users, and scope for the first
 time, not just the gaps in a written brief. The user answers **in this file**, in the
 answer slot under each question. Never ask for answers in a separate file — matching them

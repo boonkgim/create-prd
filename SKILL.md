@@ -41,22 +41,26 @@ whether a brief exists.
 ```
 docs/<dated-folder>/
   01-brief.md
-  02-questions.md      <- round 1, the user types answers into it
-  03-questions.md      <- round 2, only if needed
-  04-prd.md            <- next free number once the gate passes
+  02-create-prd-questions.md      <- round 1, the user types answers into it
+  03-create-prd-questions.md      <- round 2, only if needed
+  04-prd.md                       <- next free number once the gate passes
 ```
 
 **Without a brief** — nothing has been written down yet, just an idea:
 
 ```
 docs/<dated-folder>/
-  01-questions.md      <- round 1, stands in for the brief
-  02-questions.md      <- round 2, only if needed
-  03-prd.md            <- next free number once the gate passes
+  01-create-prd-questions.md      <- round 1, stands in for the brief
+  02-create-prd-questions.md      <- round 2, only if needed
+  03-prd.md                       <- next free number once the gate passes
 ```
 
 The PRD's number depends on how many rounds ran. Always use the next free number; never
-overwrite or renumber an existing file.
+overwrite or renumber an existing file. **Questionnaire files carry this skill's name** —
+`create-prd-questions.md`, never bare `questions.md` — because a project's dated folder is
+often shared with other skills that write their own numbered questionnaire when this PRD
+alone doesn't answer everything they need; the prefix says which skill is asking, and which
+round to point the user at when more than one is open at once.
 
 `<dated-folder>` is `yyyy-mm-dd-<slug>`, e.g. `2026-09-08-loyalty-points`. Take the slug
 from the brief's subject, or, when there is no brief, from the user's one-line answer to
@@ -93,7 +97,7 @@ questionnaire, or vice versa.
 
 3. **If no brief exists, do not ask for one.** A brief is a convenience, not a requirement.
    Ask the user a single quick question — "What would you like to create?" — one sentence
-   is enough. Then create `docs/<dated-folder>/01-questions.md` from
+   is enough. Then create `docs/<dated-folder>/01-create-prd-questions.md` from
    `references/questionnaire-template.md` and go straight to the readiness gate below to
    work out what round 1 needs to ask. This first round does the job the brief would have
    done: problem, users, and scope get written down for the first time in the user's own
@@ -106,7 +110,7 @@ questionnaire, or vice versa.
    settled by the existing project (commonly G8, the product name, or G6, the identity
    model) passes immediately — note where you found the answer rather than asking again.
 
-5. **If any gate fails, write a questionnaire** to the next free number (`NN-questions.md`)
+5. **If any gate fails, write a questionnaire** to the next free number (`NN-create-prd-questions.md`)
    using `references/questionnaire-template.md`, and following _Question design_ and
    _Rounds_ below. Then stop and tell the user which file to fill in. Do not write a partial
    PRD, and do not write a draft PRD alongside the questions — a draft invites approval of
@@ -245,7 +249,7 @@ outward to context the reader lacks.
 
 - **Absorb, don't cite.** Restate the brief's and questionnaires' content in the PRD's own
   words in the right sections. Never write "as described in the brief", "see
-  `02-questions.md`", "per our discussion", or "as we agreed" — the reader has none of
+  `02-create-prd-questions.md`", "per our discussion", or "as we agreed" — the reader has none of
   those.
 - **Everything the user wrote becomes document content.** Answers, corrected assumptions,
   and free-text comments must each land in a numbered section, not just quietly shape a

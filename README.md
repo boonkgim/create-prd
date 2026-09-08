@@ -56,19 +56,23 @@ With a brief:
 ```
 docs/<dated-folder>/
   01-brief.md
-  02-questions.md      <- round 1, the user types answers into it
-  03-questions.md      <- round 2, only if needed
-  04-prd.md            <- next free number once the gate passes
+  02-create-prd-questions.md      <- round 1, the user types answers into it
+  03-create-prd-questions.md      <- round 2, only if needed
+  04-prd.md                       <- next free number once the gate passes
 ```
 
 Without one:
 
 ```
 docs/<dated-folder>/
-  01-questions.md      <- round 1, stands in for the brief
-  02-questions.md      <- round 2, only if needed
-  03-prd.md            <- next free number once the gate passes
+  01-create-prd-questions.md      <- round 1, stands in for the brief
+  02-create-prd-questions.md      <- round 2, only if needed
+  03-prd.md                       <- next free number once the gate passes
 ```
+
+Questionnaire files carry the skill's name rather than a bare `questions.md`, since a
+project's dated folder is often shared with other skills that write their own numbered
+questionnaire alongside this one.
 
 The PRD is one markdown file, as long as the decisions it carries. No images, no embedded scripts, no
 links to files the reader might not have — it opens correctly in any text editor,
