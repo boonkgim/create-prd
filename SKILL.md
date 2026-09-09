@@ -118,7 +118,10 @@ questionnaire, or vice versa.
 
 6. **When the user returns with answers**, start again at step 2 (or step 1 if the project
    context may have changed). The folder now contains their answers; re-test the gate; issue
-   a narrower round if it still fails.
+   a narrower round if it still fails. **If the user answers in chat instead of editing the
+   file**, the conversation is not the memory — the file is. Before doing anything else,
+   write their chat answers into the open questionnaire file, in place, the same way a
+   hand-typed answer would appear, then proceed as if they had edited it themselves.
 
 7. **When every gate passes, write the PRD** to the next free number (`NN-prd.md`) by
    copying `references/prd-template.md` and replacing its content, following the rules in
