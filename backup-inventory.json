@@ -2,10 +2,229 @@
   "backup_project": {
     "version": 1,
     "project": "create-prd",
-    "entries": [],
-    "gaps": [
-      "Initial audit and storage approvals pending"
+    "entries": [
+      {
+        "kind": "github",
+        "path": ".gitignore",
+        "sha256": "6b0ecf45c34530ae32276c02d0e8ca763c31ba66c68dfd3345ac579c6e2ad853",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.893736+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "LICENSE",
+        "sha256": "298c4c92a32d5cb8188f29c3af2f35634746a1847d3072e3c035d34d5662aa7e",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.896282+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "README.md",
+        "sha256": "f5d281a7730e2633963cd8ddc2196ddd688d101323950b661fce45a6a6e2843e",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.898543+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "SKILL.md",
+        "sha256": "7d352e872994eef1adadaad8b3c28d843b59e4432fda0eb2c3f7ee25b1e8f4e3",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.903619+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "references/prd-template.md",
+        "sha256": "5afa6abda43cc3516adc8f08384f998cc282aed246072a9750e1941a27a64f26",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.906204+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "references/questionnaire-template.md",
+        "sha256": "2677792b60da65f160afba7f3462115565a7a29b2441ab3fd81c52a1ca1f6067",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.908525+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "AGENTS.md",
+        "sha256": "6a2d4f07bbad3caa7f27b238fa0ac7a0ca7c10eb6aeee8d2082d74021a59ceef",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.910863+00:00"
+      },
+      {
+        "kind": "github",
+        "path": "backup.config.json",
+        "sha256": "302dfa67e241e7703db41c110849990752d334989809c3d89cb22242a872347e",
+        "commit": "11ddffce92e15336108e94b1649a251892505253",
+        "published_branch_head": "11ddffce92e15336108e94b1649a251892505253",
+        "remote": "origin",
+        "branch": "main",
+        "verified_at": "2026-11-01T22:21:12.913780+00:00"
+      }
     ],
-    "updated": "2026-11-01T22:21:09.767947+00:00"
+    "gaps": [],
+    "updated": "2026-11-01T22:21:12.913956+00:00",
+    "last_run": {
+      "id": "17ba73f4c293460ba9bb8399e456cb63",
+      "operation": "verify-git",
+      "started_at": "2026-11-01T22:21:12.399175+00:00",
+      "status": "succeeded",
+      "finished_at": "2026-11-01T22:21:12.915848+00:00",
+      "files": 8
+    },
+    "last_successful_run": {
+      "id": "17ba73f4c293460ba9bb8399e456cb63",
+      "operation": "verify-git",
+      "started_at": "2026-11-01T22:21:12.399175+00:00",
+      "status": "succeeded",
+      "finished_at": "2026-11-01T22:21:12.915848+00:00",
+      "files": 8
+    },
+    "last_successful_scan": {
+      "id": "50bd94873b1f4e7f9dee28078b26f88c",
+      "operation": "audit",
+      "started_at": "2026-11-01T22:21:12.366309+00:00",
+      "status": "succeeded",
+      "finished_at": "2026-11-01T22:21:12.373879+00:00",
+      "changes": {
+        "new": 8,
+        "modified": 0,
+        "unchanged": 0,
+        "removed": 0,
+        "no-longer-scanned": 0,
+        "unsupported": 0
+      },
+      "git_discovery": {
+        "status": "cross-checked",
+        "tracked_count": 9,
+        "untracked_count": 0,
+        "ignored_candidates_count": 0,
+        "newly_ignored_candidates_count": 0,
+        "not_scanned_tracked_or_untracked_count": 0,
+        "ignored_candidates_excluded_from_scan_count": 0,
+        "ignore_source_changes_count": 0
+      }
+    },
+    "last_verified_backup_run": {
+      "id": "17ba73f4c293460ba9bb8399e456cb63",
+      "operation": "verify-git",
+      "started_at": "2026-11-01T22:21:12.399175+00:00",
+      "status": "succeeded",
+      "finished_at": "2026-11-01T22:21:12.915848+00:00",
+      "files": 8
+    },
+    "recovery": {
+      "version": 2,
+      "procedure_reference": "https://github.com/boonkgim/backup-project/blob/789f5d72e12066c6d4c873fa45591ef91d6b5f7f/SKILL.md",
+      "scope": {
+        "kind": "project",
+        "assurance": "backup",
+        "categories": [
+          "source",
+          "bootstrap"
+        ],
+        "description": "Current checkout source and local project records on main; reviewed pending source snapshots explicitly included where recorded. Other worktrees, global credentials, Git internals and infrastructure DR are outside scope.",
+        "environments": [
+          "local skill repository"
+        ],
+        "confirmed_by": "Boon backup request 2026-11-02",
+        "confirmed_at": "2026-11-01T22:21:12.924316+00:00"
+      },
+      "start_here": {
+        "reference": "https://github.com/boonkgim/create-prd/blob/11ddffce92e15336108e94b1649a251892505253/AGENTS.md",
+        "verified_at": "2026-11-01T22:21:12.924328+00:00"
+      },
+      "latest_inventory": {
+        "reference": "https://github.com/boonkgim/create-prd/blob/main/backup-inventory.json",
+        "verified_at": "2026-11-01T22:21:12.924331+00:00"
+      },
+      "components": [
+        {
+          "id": "current-source",
+          "label": "Current skill source and project records",
+          "category": "source",
+          "required": true,
+          "owner": "Repository owner",
+          "authoritative_source": "https://github.com/boonkgim/create-prd/tree/11ddffce92e15336108e94b1649a251892505253",
+          "backup": {
+            "state": "verified",
+            "reference": "https://github.com/boonkgim/create-prd/tree/11ddffce92e15336108e94b1649a251892505253",
+            "version": "03af5588226f5364241ddc7dc918c0186b831280d978cf70d86045d61f32aa76",
+            "verified_at": "2026-11-01T22:21:12.924334+00:00"
+          },
+          "restore": {
+            "state": "untested",
+            "method": "Fetch the recorded Git commit through authorised repository access; use the project bootstrap and retained inventory. No service restore is claimed."
+          },
+          "freshness": {
+            "state": "current",
+            "checked_at": "2026-11-01T22:21:12.924336+00:00",
+            "current_version": "03af5588226f5364241ddc7dc918c0186b831280d978cf70d86045d61f32aa76",
+            "max_age_hours": null
+          },
+          "blocker": "",
+          "next_action": "Reverify after source changes."
+        },
+        {
+          "id": "fresh-clone-bootstrap",
+          "label": "Shared SOP installation and local coverage discovery",
+          "category": "bootstrap",
+          "required": true,
+          "owner": "Repository owner",
+          "authoritative_source": "https://github.com/boonkgim/create-prd/blob/11ddffce92e15336108e94b1649a251892505253/AGENTS.md",
+          "backup": {
+            "state": "verified",
+            "reference": "https://github.com/boonkgim/create-prd/blob/11ddffce92e15336108e94b1649a251892505253/AGENTS.md",
+            "version": "6a2d4f07bbad3caa7f27b238fa0ac7a0ca7c10eb6aeee8d2082d74021a59ceef",
+            "verified_at": "2026-11-01T22:21:12.924352+00:00"
+          },
+          "restore": {
+            "state": "untested",
+            "method": "Fetch the recorded Git commit through authorised repository access; use the project bootstrap and retained inventory. No service restore is claimed."
+          },
+          "freshness": {
+            "state": "current",
+            "checked_at": "2026-11-01T22:21:12.924354+00:00",
+            "current_version": "6a2d4f07bbad3caa7f27b238fa0ac7a0ca7c10eb6aeee8d2082d74021a59ceef",
+            "max_age_hours": null
+          },
+          "blocker": "",
+          "next_action": "Reverify after source changes."
+        }
+      ]
+    },
+    "assessment": {
+      "checked_at": "2026-11-01T22:21:12.924358+00:00",
+      "audience": "public",
+      "payload_files": 6,
+      "payload_bytes": 50746,
+      "secret_payloads_found": 0,
+      "drive_payloads_required": 0,
+      "assurance": "ordinary backup; restoration and global account-loss recovery not tested",
+      "git_runtime_review": "Only standard Git internals and filter-repo conversion metadata where present; no application runtime/database found. Preserved and excluded from current-folder claim.",
+      "pending_snapshot_branch": null
+    }
   }
 }
